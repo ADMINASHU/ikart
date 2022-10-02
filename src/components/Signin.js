@@ -59,7 +59,8 @@ const Signin = () => {
       const email = response?.data?.email;
       const role = response?.data?.role;
       const accessToken = response?.data?.accessToken;
-      setAuth({ username, email, role, accessToken });
+      const seller = response?.data?.seller;
+      setAuth({ username, email, role, accessToken, seller });
       setUserName("");
       setPassword("");
       navigate(from, { replace: true });

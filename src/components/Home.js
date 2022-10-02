@@ -1,9 +1,21 @@
 import React from 'react'
-import ProductCard from './ProductCard'
+import useProduct from "./hooks/useProduct";
+import ProductFilter from './ProductFilter';
+import ProductView from './ProductView';
 
 const Home = () => {
+  const { products } = useProduct();
   return (
-   <h1>Home</h1>
+    <div className="product">
+    {products?.length ? (
+      <>
+        <ProductFilter/>
+        <ProductView/>
+      </>
+    ) : (
+      <h2>Loading...</h2>
+    )}
+  </div>
   )
 }
 

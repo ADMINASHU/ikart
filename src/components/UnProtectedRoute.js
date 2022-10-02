@@ -5,7 +5,7 @@ const UnProtectedRoute = () => {
   const { auth } = useAuth();
   const location = useLocation();
 
-  return auth?.username ? (
+  return auth?.accessToken ? (
     <Navigate to="/profile" state={{ from: location }} replace />
     ) : (
     <Outlet />

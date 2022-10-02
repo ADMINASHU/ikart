@@ -17,7 +17,7 @@ const Signup = () => {
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,24}$/;
   //useRef for input fields..................................
   const userNameRef = useRef();
-  const errRef = useRef();
+
 
   //useState for input fields..................................
   const [userName, setUserName] = useState("");
@@ -82,6 +82,7 @@ const Signup = () => {
           email: email,
           password: password,
           cPassword: matchPassword,
+          role:"User",
         },
         {
           header: { "content-Type": "application/json" },
@@ -227,7 +228,7 @@ const Signup = () => {
           SignUp
         </button>
         <br />
-        <span className="invalidError" ref={errRef}>
+        <span className="invalidError">
           {errMsg}
         </span>
         <br />

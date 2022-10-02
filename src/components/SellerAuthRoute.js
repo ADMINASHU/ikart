@@ -1,14 +1,14 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
 
-const ProtectedAuthRoute = () => {
+const SellerAuthRoute = () => {
   const { auth } = useAuth();
   const location = useLocation();
 
-  return auth?.accessToken ? (
+  return auth?.role==="Seller" ? (
     <Outlet />
   ) : (
-    <Navigate to="/signin" state={{ from: location }} replace />
+    <Navigate to="/seller" state={{ from: location }} replace />
   );
 };
-export default ProtectedAuthRoute;
+export default SellerAuthRoute;
