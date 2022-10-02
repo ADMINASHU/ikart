@@ -5,10 +5,13 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Product from "./components/Product";
 import Profile from "./components/Profile";
-import Sigin from "./components/Sigin";
+import Signin from "./components/Signin";
+import Signup from "./components/Singup";
 import Contact from "./components/Contact";
 import Page404 from "./components/Page404";
 import Footer from "./components/Footer";
+import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
+import UnProtectedRoute from "./components/UnProtectedRoute";
 function App() {
   return (
     <div className="App">
@@ -18,12 +21,17 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/product" element={<Product />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/sigin" element={<Sigin />} />
+          <Route element={<ProtectedAuthRoute />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+          <Route element={<UnProtectedRoute />}>
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
           <Route path="/contact" element={<Contact />} />
           <Route path="/*" element={<Page404 />} />\{" "}
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </div>
   );
