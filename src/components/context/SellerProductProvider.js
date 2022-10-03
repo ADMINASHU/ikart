@@ -6,6 +6,7 @@ const SellerProductContext = createContext({});
 
 export const SellerProductProvider = ({ children }) => {
   const [sellerProducts, setSellerProduct] = useState([]);
+  const [productId, setProductId] = useState("")
   const { auth } = useAuth();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export const SellerProductProvider = ({ children }) => {
   };
   return (
     <SellerProductContext.Provider
-      value={{ sellerProducts, getSellerProduct }}
+      value={{ sellerProducts, getSellerProduct , productId, setProductId}}
     >
       {children}
     </SellerProductContext.Provider>

@@ -1,18 +1,21 @@
-.product{
-    .filter {
+.product {
+    .cards {
+
         position: relative;
-        
+
         .ProductForm {
             background-color: red;
-            width:350px;
-            position:absolute;
+            width: 350px;
+            position: absolute;
             left: 250px;
             padding: 20px;
-            input{
+
+            input {
                 width: 300px;
                 height: 30px;
             }
         }
-    
+
+
     }
 }

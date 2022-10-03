@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
 import useSellerProduct from "./hooks/useSellerProduct";
 
-const ProductForm = ({setFormView}) => {
+const UpdateProductForm = ({ setUpdateFormView, id }) => {
   const { auth } = useAuth();
   const { getSellerProduct } = useSellerProduct();
   const [productName, setProductName] = useState("");
@@ -28,16 +28,36 @@ const ProductForm = ({setFormView}) => {
     productCode,
     auth,
   ]); // useEffect for set Error
+  useEffect(() => {
+    getProductDetails();
+  }, []);
+
   const navigate = useNavigate();
 
   // functions define ...................................................
+
+  const getProductDetails = async () => {
+    try {
+      const response = await axios.get(`/gProduct/${id}`);
+      const getProduct = await response?.data;
+      setProductName(getProduct.productName);
+      setProductPrice(getProduct.productPrice);
+      setProductQuantity(getProduct.productQuantity);
+      setProductCategory(getProduct.productCategory);
+      setProductImage(getProduct.productImage);
+      setProductColor(getProduct.productColor);
+      setProductCode(getProduct.productCode);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "/addProduct",
+      const response = await axios.put(
+        `/updateProduct/${id}`,
         {
           productName: productName,
           productPrice: productPrice,
@@ -46,7 +66,6 @@ const ProductForm = ({setFormView}) => {
           productImage: productImage,
           productColor: productColor,
           productCode: productCode,
-          sellerName: auth.username,
         },
         {
           header: { "content-Type": "application/json" },
@@ -63,7 +82,7 @@ const ProductForm = ({setFormView}) => {
       setProductColor("");
       setProductCode("");
       getSellerProduct();
-      setFormView(false);
+      setUpdateFormView(false);
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Server not responding");
@@ -76,7 +95,7 @@ const ProductForm = ({setFormView}) => {
   };
 
   return (
-    <form method="post" onSubmit={handleSubmit}>
+    <form method="put" onSubmit={handleSubmit}>
       <label>product Name: </label>
       <div className="inputBox">
         <input
@@ -170,7 +189,7 @@ const ProductForm = ({setFormView}) => {
       </div>
       <br />
       <button className="btn btn-seller" type="submit">
-        Add Product
+        Update Product
       </button>
       <br />
       <span className="invalidError">{errMsg}</span>
@@ -179,4 +198,4 @@ const ProductForm = ({setFormView}) => {
   );
 };
 
-export default ProductForm;
+export default UpdateProductForm;
