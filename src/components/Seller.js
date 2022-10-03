@@ -16,7 +16,6 @@ const Seller = () => {
       ) : (
         <></>
       )}
-      <div></div>
     </div>
   );
 };

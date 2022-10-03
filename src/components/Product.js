@@ -1,20 +1,16 @@
 import React from "react";
 import ProductFilter from "./ProductFilter";
-import ProductView from "./ProductView";
-import useProduct from "./hooks/useProduct";
+import "./Product.scss";
+import SellerProductView from "./SellerProductView";
+import { SellerProductProvider } from "../components/context/SellerProductProvider";
 
 const Product = () => {
-  const { products } = useProduct();
   return (
     <div className="product">
-      {products?.length ? (
-        <>
-          <ProductFilter />
-          <ProductView />
-        </>
-      ) : (
-        <h2>No Product added</h2>
-      )}
+      <SellerProductProvider>
+        <ProductFilter />
+        <SellerProductView />
+      </SellerProductProvider>
     </div>
   );
 };

@@ -10,7 +10,7 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <ProductProvider>
-        <App />
+          <App />
       </ProductProvider>
     </AuthProvider>
   </React.StrictMode>

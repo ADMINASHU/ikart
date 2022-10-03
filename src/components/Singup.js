@@ -65,6 +65,9 @@ const Signup = () => {
 
   const priColor = "#040480";
   const insColor = "040480";
+
+  // functions define ...................................................
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const v1 = USER_REGEX.test(userName);
@@ -89,7 +92,7 @@ const Signup = () => {
           withCredentials: false,
         }
       );
-      console.log(response.data);
+      console.log(response?.data);
       navigate("/Signin");
     } catch (error) {
       if (!error?.response) {

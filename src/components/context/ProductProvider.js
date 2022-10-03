@@ -26,7 +26,7 @@ export const ProductProvider = ({ children }) => {
       isMounted = false;
       controller.abort();
     };
-  }, []);
+  },[]);  // [] *****put sellerProducts as a dependency to refresh page when product is add or deleted ***************************
 
   return (
     <ProductContext.Provider value={{ products, setProduct }}>

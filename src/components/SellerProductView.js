@@ -1,13 +1,13 @@
 import ProductCard from "./ProductCard";
-import useProduct from "./hooks/useProduct";
+import useSellerProduct from "./hooks/useSellerProduct";
 
-const ProductView = () => {
-  const { products } = useProduct();
+const SellerProductView = () => {
+  const { sellerProducts } = useSellerProduct();
 
   return (
     <div className="cards">
-      {products?.length ? (
-        products?.map((product, index) => {
+      {sellerProducts?.length ? (
+        sellerProducts?.map((product, index) => {
           return (
             <ProductCard
               key={index}
@@ -25,4 +25,4 @@ const ProductView = () => {
   );
 };
 
-export default ProductView;
+export default SellerProductView;
