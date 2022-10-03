@@ -1,8 +1,13 @@
 import ProductCard from "./ProductCard";
 import useSellerProduct from "./hooks/useSellerProduct";
+import { useEffect } from "react";
 
 const SellerProductView = () => {
-  const { sellerProducts } = useSellerProduct();
+  const { sellerProducts, getSellerProduct } = useSellerProduct();
+
+  // useEffect(() => {
+  //   getSellerProduct();
+  // }, []);
 
   return (
     <div className="cards">
