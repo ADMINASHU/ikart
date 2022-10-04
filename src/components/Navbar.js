@@ -9,14 +9,19 @@ import {
   faPowerOff,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useProduct from "./hooks/useProduct";
 
 const Navbar = () => {
-  const { auth, setAuth } = useAuth();
+  const { auth, setAuth, search, setSearch } = useAuth();
+  const { searchProduct } = useProduct();
   const [navView, setNavView] = useState(false);
   useEffect(() => {
     setNavView(false);
   }, [auth]);
-  const handelNavView = () => setNavView((prevState) => !prevState);
+
+  useEffect(() => {
+    searchProduct();
+  }, []);
 
   return (
     <div className="navbar">
@@ -25,6 +30,22 @@ const Navbar = () => {
         <span className="i">i</span>
         <span className="kart">Kart</span>
       </NavLink>
+      <div className="search">
+        <input
+          type="text"
+          placeholder="Search Products"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        {search ? (
+          <NavLink to={"/search"}>
+            <button onClick={() => searchProduct()}>Search</button>
+          </NavLink>
+        ) : (
+          <button>Search</button>
+        )}
+      </div>
       <ul className="links">
         {auth?.role === "Seller" ? (
           <li className="link">
@@ -43,7 +64,7 @@ const Navbar = () => {
           <li className="link">
             <NavLink
               onMouseOver={() => setNavView(true)}
-              onClick={handelNavView}
+              onClick={() => setNavView((prevState) => !prevState)}
             >
               {auth.username}
             </NavLink>
