@@ -16,7 +16,7 @@ const Search = () => {
           <SearchView />
         </>
       ) : (
-        <h2>Loading...</h2>
+        <h2>No items</h2>
       )}
     </div>
   );

@@ -19,7 +19,6 @@ import Seller from "./components/Seller";
 import Orders from "./components/Orders";
 import Wishlist from "./components/Wishlist";
 import Search from "./components/Search";
-import ProtectedSearchRoute from "./components/ProtectedSearchRoute";
 function App() {
   return (
     <div className="App">
@@ -27,9 +26,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route element={<ProtectedSearchRoute/>}>
             <Route path="/search" element={<Search />} />
-          </Route>
           <Route path="/about" element={<About />} />
           <Route element={<ProtectedAuthRoute />}>
             <Route element={<SellerAuthRoute />}>
