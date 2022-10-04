@@ -16,7 +16,7 @@ const Search = () => {
           <SearchView />
         </>
       ) : (
-        <h2>No items</h2>
+        <h2>Product not Found</h2>
       )}
     </div>
   );

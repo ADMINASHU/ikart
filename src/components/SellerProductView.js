@@ -6,12 +6,14 @@ import ProductForm from "./ProductForm";
 import UpdateProductForm from "./UpdateProductForm";
 import SellerProductCard from "./SellerProductCard";
 import axios from "../api/axios";
-
+import useAuth from "./hooks/useAuth";
 
 const SellerProductView = () => {
   const [formView, setFormView] = useState(false);
   const [updateFormView, setUpdateFormView] = useState(false);
-  const { sellerProducts, getSellerProduct, productId, setProductId } = useSellerProduct();
+  const { auth } = useAuth();
+  const { sellerProducts, getSellerProduct, productId, setProductId } =
+    useSellerProduct();
 
   // useEffect(() => {
   //   getSellerProduct();
@@ -19,7 +21,12 @@ const SellerProductView = () => {
 
   const deleteProduct = async (id) => {
     try {
-      const response = await axios.delete(`/deleteProduct/${id}`);
+      const response = await axios.delete(`/deleteProduct/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: auth.accessToken,
+        },
+      });
       getSellerProduct();
     } catch (error) {
       console.log(error);
@@ -37,9 +44,9 @@ const SellerProductView = () => {
       )}
       {updateFormView ? (
         <div className="ProductForm">
-          <UpdateProductForm 
-          setUpdateFormView={setUpdateFormView}
-          id={productId} 
+          <UpdateProductForm
+            setUpdateFormView={setUpdateFormView}
+            id={productId}
           />
         </div>
       ) : (

@@ -23,7 +23,7 @@ export const ProductProvider = ({ children }) => {
   const searchProduct = async () => {
     try {
       if (search) {
-        const response = await axios.get(`/searchProduct/${search}`); // `/searchProduct/${search}`
+        const response = await axios.get(`/searchProduct/${search.trim()}`); // `/searchProduct/${search}`
         setProduct(response.data);
       } else {
         setProduct([]);

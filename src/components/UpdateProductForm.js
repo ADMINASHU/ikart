@@ -38,7 +38,15 @@ const UpdateProductForm = ({ setUpdateFormView, id }) => {
 
   const getProductDetails = async () => {
     try {
-      const response = await axios.get(`/gProduct/${id}`);
+      const response = await axios.get(`/gProduct/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: auth.accessToken,
+        },
+    
+      
+        // withCredentials: false,
+      });
       const getProduct = await response?.data;
       setProductName(getProduct.productName);
       setProductPrice(getProduct.productPrice);
@@ -68,8 +76,10 @@ const UpdateProductForm = ({ setUpdateFormView, id }) => {
           productCode: productCode,
         },
         {
-          header: { "content-Type": "application/json" },
-          withCredentials: false,
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth.accessToken,
+          },
         }
       );
       // console.log(response?.data);

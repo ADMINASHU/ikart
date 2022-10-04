@@ -39,8 +39,10 @@ const SellerForm = () => {
           pincode: pincode,
         },
         {
-          header: { "content-Type": "application/json" },
-          withCredentials: false,
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth.accessToken,
+          },
         }
       );
       console.log(response?.data);

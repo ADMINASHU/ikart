@@ -38,12 +38,12 @@ const Navbar = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {search ? (
+        {search.trim() ? (
           <NavLink to={"/search"}>
             <button onClick={() => searchProduct()}>Search</button>
           </NavLink>
         ) : (
-          <button>Search</button>
+          <button onClick={()=>setSearch("")}>Search</button>
         )}
       </div>
       <ul className="links">

@@ -6,7 +6,7 @@ const SellerProductContext = createContext({});
 
 export const SellerProductProvider = ({ children }) => {
   const [sellerProducts, setSellerProduct] = useState([]);
-  const [productId, setProductId] = useState("")
+  const [productId, setProductId] = useState("");
   const { auth } = useAuth();
 
   useEffect(() => {
@@ -16,7 +16,13 @@ export const SellerProductProvider = ({ children }) => {
   const getSellerProduct = async () => {
     try {
       // console.log(`/getProduct/${auth.username}`);
-      const response = await axios.get(`/getProduct/${auth.username}`);
+      const response = await axios.get(`/getProduct/${auth.username}`, {
+        method:"GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: auth.accessToken,
+        },
+      });
       setSellerProduct(response.data);
       // console.log(`/getProduct/${auth.username}`);
 
@@ -27,7 +33,7 @@ export const SellerProductProvider = ({ children }) => {
   };
   return (
     <SellerProductContext.Provider
-      value={{ sellerProducts, getSellerProduct , productId, setProductId}}
+      value={{ sellerProducts, getSellerProduct, productId, setProductId }}
     >
       {children}
     </SellerProductContext.Provider>
