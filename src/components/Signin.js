@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
 
 const Signin = () => {
-  const { auth, setAuth } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -51,18 +51,19 @@ const Signin = () => {
         },
         {
           header: { "content-Type": "application/json" },
-          withCredentials: false,
+          withCredentials: true,
         }
       );
-      // console.log(response?.data);
-      const username = response?.data?.username;
-      const email = response?.data?.email;
-      const role = response?.data?.role;
-      const accessToken = response?.data?.accessToken;
-      const seller = response?.data?.seller;
-      setAuth({ username, email, role, accessToken, seller });
+      console.log(response?.data);
+      // const username = response?.data?.username;
+      // const email = response?.data?.email;
+      // const role = response?.data?.role;
+      // const accessToken = response?.data?.accessToken;
+      // const seller = response?.data?.seller;
+      // setAuth({ username, email, role, accessToken, seller });
       setUserName("");
       setPassword("");
+      isLoggedIn();
       navigate(from, { replace: true });
       // console.log(auth);
     } catch (error) {

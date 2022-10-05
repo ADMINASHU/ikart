@@ -26,9 +26,9 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/about" element={<About />} />
-          <Route element={<ProtectedAuthRoute />}>
+          <Route element={<ProtectedAuthRoute />}>   // route for take to login if not login
             <Route element={<SellerAuthRoute />}>
               <Route path="/product" element={<Product />} />
             </Route>
@@ -39,7 +39,7 @@ function App() {
             <Route path="/orders" element={<Orders />} />
             <Route path="/wishlist" element={<Wishlist />} />
           </Route>
-          <Route element={<UnProtectedRoute />}>
+          <Route element={<UnProtectedRoute />}>   // open route for login and logout
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
           </Route>

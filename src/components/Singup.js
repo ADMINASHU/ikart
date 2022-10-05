@@ -18,7 +18,6 @@ const Signup = () => {
   //useRef for input fields..................................
   const userNameRef = useRef();
 
-
   //useState for input fields..................................
   const [userName, setUserName] = useState("");
   const [validUserName, setValidUserName] = useState(false);
@@ -85,15 +84,12 @@ const Signup = () => {
           email: email,
           password: password,
           cPassword: matchPassword,
-          role:"User",
+          role: "User",
         },
-        {
-          header: { "content-Type": "application/json" },
-          withCredentials: false,
-        }
+        { withCredentials: true }
       );
       console.log(response?.data);
-      navigate("/Signin");
+      navigate("/profile");
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Server not responding");
@@ -231,9 +227,7 @@ const Signup = () => {
           SignUp
         </button>
         <br />
-        <span className="invalidError">
-          {errMsg}
-        </span>
+        <span className="invalidError">{errMsg}</span>
         <br />
         <p className="logInLink">
           Already registered?

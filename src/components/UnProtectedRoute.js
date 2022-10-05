@@ -6,8 +6,8 @@ const UnProtectedRoute = () => {
   const location = useLocation();
 
   return auth?.accessToken ? (
-    <Navigate to="/profile" state={{ from: location }} replace />
-    ) : (
+    <Navigate to="/" state={{ from: location }} replace />
+  ) : (
     <Outlet />
   );
 };

@@ -8,6 +8,7 @@ const Home = () => {
   useEffect(() => {
     getProduct();
   }, []);
+
   return (
     <div className="product">
       {products?.length ? (

@@ -10,14 +10,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useProduct from "./hooks/useProduct";
+import axios from "../api/axios";
+import LogOutBtn from "./LogOutBtn";
 
 const Navbar = () => {
-  const { auth, setAuth, search, setSearch } = useAuth();
+  const {  isLoggedIn, auth, search, setSearch } = useAuth();
   const { searchProduct } = useProduct();
   const [navView, setNavView] = useState(false);
   useEffect(() => {
     setNavView(false);
-  }, [auth]);
+    console.log("from effect hook");
+  }, [auth?.accessToken]);
 
   useEffect(() => {
     searchProduct();
@@ -106,15 +109,10 @@ const Navbar = () => {
                 Wishlist
               </NavLink>
             </li>
-            <li className="profileLink">
-              <NavLink
-                to={"/signin"}
-                onClick={() => {
-                  setAuth({});
-                }}
-              >
+            <li className="profileLink" >
+              <NavLink to={"/signin"} onClick={() => isLoggedIn()}>
                 <FontAwesomeIcon icon={faPowerOff} size="sm" />
-                LogOut
+                <LogOutBtn />
               </NavLink>
             </li>
           </ul>
