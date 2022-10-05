@@ -10,20 +10,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useProduct from "./hooks/useProduct";
-import axios from "../api/axios";
 import LogOutBtn from "./LogOutBtn";
 
 const Navbar = () => {
-  const {  isLoggedIn, auth, search, setSearch } = useAuth();
+  const { isLoggedIn, auth, search, setSearch } =
+    useAuth();
   const { searchProduct } = useProduct();
   const [navView, setNavView] = useState(false);
   useEffect(() => {
+    // console.log("Navbar: ", auth.accessToken);
+
     setNavView(false);
-    console.log("from effect hook");
-  }, [auth?.accessToken]);
+  }, []);
 
   useEffect(() => {
     searchProduct();
+    // isLoggedIn();
   }, []);
 
   return (
@@ -46,7 +48,7 @@ const Navbar = () => {
             <button onClick={() => searchProduct()}>Search</button>
           </NavLink>
         ) : (
-          <button onClick={()=>setSearch("")}>Search</button>
+          <button onClick={() => setSearch("")}>Search</button>
         )}
       </div>
       <ul className="links">
@@ -109,10 +111,14 @@ const Navbar = () => {
                 Wishlist
               </NavLink>
             </li>
-            <li className="profileLink" >
-              <NavLink to={"/signin"} onClick={() => isLoggedIn()}>
+            <li className="profileLink">
+              <NavLink to={"/signin"}>
                 <FontAwesomeIcon icon={faPowerOff} size="sm" />
-                <LogOutBtn />
+                <LogOutBtn
+                  onClick={() => {
+                    isLoggedIn();
+                  }}
+                />
               </NavLink>
             </li>
           </ul>

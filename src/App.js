@@ -7,7 +7,6 @@ import Product from "./components/Product";
 import Profile from "./components/Profile";
 import Signin from "./components/Signin";
 import Signup from "./components/Singup";
-import Contact from "./components/Contact";
 import Page404 from "./components/Page404";
 import Footer from "./components/Footer";
 import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
@@ -28,7 +27,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/about" element={<About />} />
-          <Route element={<ProtectedAuthRoute />}>   // route for take to login if not login
+          <Route element={<ProtectedAuthRoute />}>   
             <Route element={<SellerAuthRoute />}>
               <Route path="/product" element={<Product />} />
             </Route>
@@ -39,7 +38,7 @@ function App() {
             <Route path="/orders" element={<Orders />} />
             <Route path="/wishlist" element={<Wishlist />} />
           </Route>
-          <Route element={<UnProtectedRoute />}>   // open route for login and logout
+          <Route element={<UnProtectedRoute />}>  
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
           </Route>

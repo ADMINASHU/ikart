@@ -10,8 +10,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
+import useAuth from "./hooks/useAuth";
 
 const Signup = () => {
+  
+  const { isLoggedIn} = useAuth();
+
   const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
   const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,24}$/;
@@ -77,7 +81,7 @@ const Signup = () => {
       return;
     }
     try {
-      const response = await axios.post(
+      await axios.post(
         "/signup",
         {
           uname: userName,
@@ -88,7 +92,7 @@ const Signup = () => {
         },
         { withCredentials: true }
       );
-      console.log(response?.data);
+      isLoggedIn();
       navigate("/profile");
     } catch (error) {
       if (!error?.response) {

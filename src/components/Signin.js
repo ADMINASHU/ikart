@@ -43,7 +43,7 @@ const Signin = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "/signin",
         {
           uname: userName,
@@ -54,18 +54,10 @@ const Signin = () => {
           withCredentials: true,
         }
       );
-      console.log(response?.data);
-      // const username = response?.data?.username;
-      // const email = response?.data?.email;
-      // const role = response?.data?.role;
-      // const accessToken = response?.data?.accessToken;
-      // const seller = response?.data?.seller;
-      // setAuth({ username, email, role, accessToken, seller });
       setUserName("");
       setPassword("");
       isLoggedIn();
       navigate(from, { replace: true });
-      // console.log(auth);
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Server not responding");
