@@ -7,7 +7,7 @@ const LogOutBtn = () => {
   const logOut = async () => {
     try {
       await axios.get("/logout");
-      isLoggedIn();
+      await isLoggedIn();
    
     } catch (error) {
       console.log(error);

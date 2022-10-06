@@ -92,8 +92,8 @@ const Signup = () => {
         },
         { withCredentials: true }
       );
-      isLoggedIn();
-      navigate("/profile");
+      await isLoggedIn();
+      await navigate("/profile");
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Server not responding");

@@ -7,12 +7,13 @@ import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
 
+
 const Signin = () => {
   const { isLoggedIn } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/profile";
+  const from = location.state?.from?.pathname || "/";
 
   //useRef for input fields..................................
   const userNameRef = useRef();
@@ -56,8 +57,9 @@ const Signin = () => {
       );
       setUserName("");
       setPassword("");
-      isLoggedIn();
-      navigate(from, { replace: true });
+      await isLoggedIn();
+      // await SetCookie("auth", userName);
+      await navigate(from, { replace: true });
     } catch (error) {
       if (!error?.response) {
         setErrMsg("Server not responding");

@@ -10,23 +10,24 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useProduct from "./hooks/useProduct";
-import LogOutBtn from "./LogOutBtn";
+import axios from "../api/axios";
 
 const Navbar = () => {
-  const { isLoggedIn, auth, search, setSearch } =
-    useAuth();
+  const { isLoggedIn, auth, search, setSearch } = useAuth();
   const { searchProduct } = useProduct();
   const [navView, setNavView] = useState(false);
   useEffect(() => {
-    // console.log("Navbar: ", auth.accessToken);
-
+    searchProduct();
     setNavView(false);
   }, []);
-
-  useEffect(() => {
-    searchProduct();
-    // isLoggedIn();
-  }, []);
+  const logOut = async () => {
+    try {
+      await axios.get("/logout");
+      await isLoggedIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="navbar">
@@ -65,7 +66,7 @@ const Navbar = () => {
           <NavLink to={"/about"}>About</NavLink>
         </li>
 
-        {auth?.accessToken ? (
+        {auth?.username ? (
           <li className="link">
             <NavLink
               onMouseOver={() => setNavView(true)}
@@ -86,7 +87,7 @@ const Navbar = () => {
           </NavLink>
         </li>
       </ul>
-      {auth?.accessToken && navView ? (
+      {auth?.username && navView ? (
         <div
           className="profileNav"
           onMouseOver={() => setNavView(true)}
@@ -111,15 +112,9 @@ const Navbar = () => {
                 Wishlist
               </NavLink>
             </li>
-            <li className="profileLink">
-              <NavLink to={"/signin"}>
-                <FontAwesomeIcon icon={faPowerOff} size="sm" />
-                <LogOutBtn
-                  onClick={() => {
-                    isLoggedIn();
-                  }}
-                />
-              </NavLink>
+            <li className="profileLink" onClick={logOut}>
+              <FontAwesomeIcon icon={faPowerOff} size="sm" />
+              Log Out
             </li>
           </ul>
         </div>

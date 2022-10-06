@@ -18,7 +18,10 @@ import Seller from "./components/Seller";
 import Orders from "./components/Orders";
 import Wishlist from "./components/Wishlist";
 import Search from "./components/Search";
-function App() {
+import useAuth from "./components/hooks/useAuth";
+
+const App = () => {
+  const { auth } = useAuth();
   return (
     <div className="App">
       <BrowserRouter>
@@ -27,28 +30,31 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/about" element={<About />} />
-          <Route element={<ProtectedAuthRoute />}>   
+
+          <Route element={<ProtectedAuthRoute />}>
             <Route element={<SellerAuthRoute />}>
               <Route path="/product" element={<Product />} />
             </Route>
             <Route element={<UserAuthRoute />}>
               <Route path="/seller" element={<Seller />} />
             </Route>
-            <Route path="/profile" element={<Profile />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/wishlist" element={<Wishlist />} />
           </Route>
-          <Route element={<UnProtectedRoute />}>  
+
+          <Route element={<UnProtectedRoute />}>
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
           </Route>
+
           <Route path="/cart" element={<Cart />} />
-          <Route path="/*" element={<Page404 />} />\{" "}
+          {/* <Route path="/*" element={<Page404 />} />\{" "} */}
         </Routes>
         <Footer />
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;

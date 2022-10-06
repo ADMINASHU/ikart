@@ -51,7 +51,8 @@ const SellerForm = () => {
       const role = response?.data?.role;
       const accessToken = auth.accessToken;
       const seller = response?.data?.seller;
-      setAuth({ username, email, role, accessToken, seller });
+      // setAuth({ username, email, role, accessToken, seller });
+      setAuth({ ...auth, seller });
       setGstin("");
       setLine1("");
       setLine1("");

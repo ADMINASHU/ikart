@@ -5,10 +5,12 @@ const UserAuthRoute = () => {
   const { auth } = useAuth();
   const location = useLocation();
 
-  return auth?.role==="User" ? (
+  return auth?.role === "User" ? (
     <Outlet />
-    ) : (
-      <Navigate to="/signin" state={{ from: location }} replace />
+  ) : auth?.role === "Seller" ? (
+    <Navigate to="/product" state={{ from: location }} replace />
+  ) : (
+    <Navigate to="/signin" state={{ from: location }} replace />
   );
 };
 export default UserAuthRoute;
