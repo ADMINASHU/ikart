@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import useAuth from "./hooks/useAuth";
 
 const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
-}
+  const { isLoggedIn } = useAuth();
+  useEffect(() => {
+    isLoggedIn();
+  }, []);
 
-export default Profile
+  return <div>Profile</div>;
+};
+
+export default Profile;

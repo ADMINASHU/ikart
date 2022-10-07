@@ -1,9 +1,11 @@
+
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
 
 const ProtectedAuthRoute = () => {
   const { auth } = useAuth();
   const location = useLocation();
+
 
   console.log("User", auth?.username);
 

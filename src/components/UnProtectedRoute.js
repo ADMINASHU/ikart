@@ -5,7 +5,7 @@ const UnProtectedRoute = () => {
   const { auth } = useAuth();
   const location = useLocation();
 
-  console.log("User: ", auth.username);
+  console.log("User: ", auth?.username);
 
   return auth
     ? auth?.username && <Navigate to="/" state={{ from: location }} replace />

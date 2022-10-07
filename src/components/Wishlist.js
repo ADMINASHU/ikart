@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import useAuth from "./hooks/useAuth";
 
 const Wishlist = () => {
-  return (
-    <div>Wishlist</div>
-  )
-}
+  const { isLoggedIn } = useAuth();
+  useEffect(() => {
+    isLoggedIn();
+  }, []);
 
-export default Wishlist
+  return <div>Wishlist</div>;
+};
+
+export default Wishlist;

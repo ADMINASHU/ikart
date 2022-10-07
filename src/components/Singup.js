@@ -13,8 +13,7 @@ import axios from "../api/axios";
 import useAuth from "./hooks/useAuth";
 
 const Signup = () => {
-  
-  const { isLoggedIn} = useAuth();
+  const { isLoggedIn } = useAuth();
 
   const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
   const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

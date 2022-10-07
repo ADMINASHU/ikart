@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import useAuth from "./hooks/useAuth";
 
 const Orders = () => {
-  return (
-    <div>Orders</div>
-  )
-}
+  const { isLoggedIn } = useAuth();
+  useEffect(() => {
+    isLoggedIn();
+  }, []);
 
-export default Orders
+  return <div>Orders</div>;
+};
+
+export default Orders;

@@ -14,7 +14,7 @@ import axios from "../api/axios";
 import Cookies from "js-cookie";
 
 const Navbar = () => {
-  const { isLoggedIn, auth, search, setSearch } = useAuth();
+  const { isLoggedIn, auth, setAuth, search, setSearch } = useAuth();
   const { searchProduct } = useProduct();
   const [navView, setNavView] = useState(false);
   useEffect(() => {
@@ -26,6 +26,7 @@ const Navbar = () => {
       Cookies.remove("auth");
       await axios.get("/logout");
       await isLoggedIn();
+      await setAuth({});
     } catch (error) {
       console.log(error);
     }
@@ -55,28 +56,32 @@ const Navbar = () => {
         )}
       </div>
       <ul className="links">
-        {auth?.role === "Seller" ? (
-          <li className="link">
-            <NavLink to={"/product"}>Product</NavLink>
-          </li>
+        <li className="link">
+          <NavLink to={"/about"}>About</NavLink>
+        </li>
+        {auth ? (
+          auth?.role === "Seller" && (
+            <li className="link">
+              <NavLink to={"/product"}>Product</NavLink>
+            </li>
+          )
         ) : (
           <li className="link">
             <NavLink to={"/seller"}>Become a seller</NavLink>
           </li>
         )}
-        <li className="link">
-          <NavLink to={"/about"}>About</NavLink>
-        </li>
 
-        {auth?.username ? (
-          <li className="link">
-            <NavLink
-              onMouseOver={() => setNavView(true)}
-              onClick={() => setNavView((prevState) => !prevState)}
-            >
-              {auth.username}
-            </NavLink>
-          </li>
+        {auth ? (
+          auth?.username && (
+            <li className="link">
+              <NavLink
+                onMouseOver={() => setNavView(true)}
+                onClick={() => setNavView((prevState) => !prevState)}
+              >
+                {auth?.username}
+              </NavLink>
+            </li>
+          )
         ) : (
           <li className="link">
             <NavLink to={"/signin"}>SignIn</NavLink>
@@ -85,7 +90,6 @@ const Navbar = () => {
         <li className="link">
           <NavLink to={"/cart"}>
             <FontAwesomeIcon icon={faCartShopping} size="sm" />
-            Cart
           </NavLink>
         </li>
       </ul>

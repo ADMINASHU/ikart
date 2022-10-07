@@ -18,10 +18,9 @@ import Seller from "./components/Seller";
 import Orders from "./components/Orders";
 import Wishlist from "./components/Wishlist";
 import Search from "./components/Search";
-import useAuth from "./components/hooks/useAuth";
 
 const App = () => {
-  const { auth } = useAuth();
+ 
   return (
     <div className="App">
       <BrowserRouter>
@@ -38,8 +37,8 @@ const App = () => {
             <Route element={<UserAuthRoute />}>
               <Route path="/seller" element={<Seller />} />
             </Route>
-            <Route path="/orders" element={<Orders />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/orders" element={<Orders />} />
             <Route path="/wishlist" element={<Wishlist />} />
           </Route>
 
@@ -49,7 +48,7 @@ const App = () => {
           </Route>
 
           <Route path="/cart" element={<Cart />} />
-          {/* <Route path="/*" element={<Page404 />} />\{" "} */}
+          <Route path="/*" element={<Page404 />} />
         </Routes>
         <Footer />
       </BrowserRouter>
