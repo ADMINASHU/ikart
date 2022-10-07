@@ -59,12 +59,19 @@ const Navbar = () => {
         <li className="link">
           <NavLink to={"/about"}>About</NavLink>
         </li>
+
+
         {auth ? (
-          auth?.role === "Seller" && (
+          (auth?.role === "Seller" && (
             <li className="link">
               <NavLink to={"/product"}>Product</NavLink>
             </li>
-          )
+          )) ||
+          (auth?.role === "User" && (
+            <li className="link">
+              <NavLink to={"/seller"}>Become a seller</NavLink>
+            </li>
+          ))
         ) : (
           <li className="link">
             <NavLink to={"/seller"}>Become a seller</NavLink>
