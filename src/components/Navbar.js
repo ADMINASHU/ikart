@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
+import useUI from "./hooks/useUI";
 import {
   faCartShopping,
   faCircleUser,
@@ -15,14 +16,15 @@ import Cookies from "js-cookie";
 
 const Navbar = () => {
   const { isLoggedIn, auth, setAuth, search, setSearch } = useAuth();
+  const { navView, setNavView } = useUI();
   const { searchProduct } = useProduct();
-  const [navView, setNavView] = useState(false);
   useEffect(() => {
     searchProduct();
     setNavView(false);
   }, []);
   const logOut = async () => {
     try {
+      setNavView(false);
       Cookies.remove("auth");
       await axios.get("/logout");
       await isLoggedIn();
@@ -59,7 +61,6 @@ const Navbar = () => {
         <li className="link">
           <NavLink to={"/about"}>About</NavLink>
         </li>
-
 
         {auth ? (
           (auth?.role === "Seller" && (

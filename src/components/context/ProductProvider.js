@@ -8,10 +8,10 @@ export const ProductProvider = ({ children }) => {
   const { search, setSearch } = useAuth();
   const [products, setProduct] = useState([]);
 
-  // useEffect(() => {
-  //   getProduct();
-  //   searchProduct();
-  // }, []); // [] *****put sellerProducts as a dependency to refresh page when product is add or deleted ***************************
+  useEffect(() => {
+    getProduct();
+    searchProduct();
+  }, []); // [] *****put sellerProducts as a dependency to refresh page when product is add or deleted ***************************
   const getProduct = async () => {
     try {
       const response = await axios.get("/product");

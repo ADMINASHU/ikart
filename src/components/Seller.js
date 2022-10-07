@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import SellerForm from "./SellerForm";
 import "./Seller.scss";
 import useAuth from "./hooks/useAuth";
+import useUI from "./hooks/useUI";
 
 const Seller = () => {
   const [formView, setFormView] = useState(false);
   const { isLoggedIn } = useAuth();
+  const { setNavView } = useUI();
   useEffect(() => {
     isLoggedIn();
+    setNavView(false);
   }, []);
 
   return (

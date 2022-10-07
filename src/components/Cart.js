@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import useUI from "./hooks/useUI";
 
 const Cart = () => {
-  return (
-    <div>Cart</div>
-  )
-}
+  const { setNavView } = useUI();
+  useEffect(() => {
+    setNavView(false);
+  }, []);
 
-export default Cart
+  return <div>Cart</div>;
+};
+
+export default Cart;
