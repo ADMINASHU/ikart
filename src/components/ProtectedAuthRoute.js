@@ -7,10 +7,10 @@ const ProtectedAuthRoute = () => {
 
   console.log("User", auth?.username);
 
-  return auth?.username && auth?.username ? (
-    <Outlet />
-  ) : (
-    !auth?.username && <Navigate to="/signin" state={{ from: location }} replace />
-  );
+  return auth
+    ? auth?.username && <Outlet />
+    : !auth?.username && (
+        <Navigate to="/signin" state={{ from: location }} replace />
+      );
 };
 export default ProtectedAuthRoute;

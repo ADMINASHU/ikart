@@ -6,7 +6,7 @@ import "./signup.scss";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
-
+import Cookies from "js-cookie";
 
 const Signin = () => {
   const { isLoggedIn } = useAuth();
@@ -58,7 +58,9 @@ const Signin = () => {
       setUserName("");
       setPassword("");
       await isLoggedIn();
-      // await SetCookie("auth", userName);
+      await Cookies.set("auth", userName, {
+        expires: 1/24,
+      });
       await navigate(from, { replace: true });
     } catch (error) {
       if (!error?.response) {

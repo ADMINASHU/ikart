@@ -11,6 +11,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useProduct from "./hooks/useProduct";
 import axios from "../api/axios";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const { isLoggedIn, auth, search, setSearch } = useAuth();
@@ -22,6 +23,7 @@ const Navbar = () => {
   }, []);
   const logOut = async () => {
     try {
+      Cookies.remove("auth");
       await axios.get("/logout");
       await isLoggedIn();
     } catch (error) {

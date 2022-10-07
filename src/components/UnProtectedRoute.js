@@ -7,10 +7,8 @@ const UnProtectedRoute = () => {
 
   console.log("User: ", auth.username);
 
-  return auth?.username && auth?.username ? (
-    <Navigate to="/" state={{ from: location }} replace />
-  ) : (
-    <Outlet />
-  );
+  return auth
+    ? auth?.username && <Navigate to="/" state={{ from: location }} replace />
+    : !auth?.username && <Outlet />;
 };
 export default UnProtectedRoute;

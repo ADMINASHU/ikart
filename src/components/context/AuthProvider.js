@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "../../api/axios";
+import Cookies from "js-cookie";
 
 const AuthContext = createContext({});
 
@@ -8,6 +9,8 @@ export const AuthProvider = ({ children }) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
+    // console.log("cookie",Cookies.get("auth"));
+    setAuth(Cookies.get("auth"));
     isLoggedIn();
     console.log("Log: connecting to server", auth?.username);
   }, []);
@@ -19,9 +22,9 @@ export const AuthProvider = ({ children }) => {
       const loggedInRes = await axios.get("/loggedIn", {
         withCredentials: true,
       });
-     
+
       console.log("Log: trying to get data ", auth?.username);
-      await loggedInRes?.data && setAuth(loggedInRes?.data);
+      await setAuth(loggedInRes?.data);
       console.log("Log: getting data successfully", auth?.username);
     } catch (error) {
       console.log(error);
