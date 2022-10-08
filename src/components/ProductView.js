@@ -1,8 +1,11 @@
 import ProductCard from "./ProductCard";
 import useProduct from "./hooks/useProduct";
 
+
+
 const ProductView = () => {
   const { products } = useProduct();
+
 
   return (
     <div className="cards">
@@ -15,6 +18,8 @@ const ProductView = () => {
               price={product.productPrice}
               color={product.productColor}
               image={product.productImage}
+              id={product._id}
+              
             />
           );
         })

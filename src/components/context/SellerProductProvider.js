@@ -15,18 +15,14 @@ export const SellerProductProvider = ({ children }) => {
 
   const getSellerProduct = async () => {
     try {
-      // console.log(`/getProduct/${auth.username}`);
-      const response = await axios.get(`/getProduct/${auth.username}`, {
+      const response = await axios.get(`/getProduct/${auth?.username}`, {
         method:"GET",
         headers: {
           "Content-Type": "application/json",
           authorization: auth.accessToken,
         },
       });
-      setSellerProduct(response.data);
-      // console.log(`/getProduct/${auth.username}`);
-
-      // console.log(sellerProducts);
+      await setSellerProduct(response.data);   
     } catch (error) {
       console.log(error);
     }

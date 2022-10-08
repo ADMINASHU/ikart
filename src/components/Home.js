@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import useProduct from "./hooks/useProduct";
-import ProductFilter from "./ProductFilter";
 import ProductView from "./ProductView";
 import useAuth from "./hooks/useAuth";
 import useUI from "./hooks/useUI";
@@ -19,7 +18,7 @@ const Home = () => {
     <div className="product">
       {products?.length ? (
         <>
-          <ProductFilter />
+          {/* <ProductFilter /> */}
           <ProductView />
         </>
       ) : (

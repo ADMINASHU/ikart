@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
 import useUI from "./hooks/useUI";
 import {
@@ -13,22 +13,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useProduct from "./hooks/useProduct";
 import axios from "../api/axios";
 import Cookies from "js-cookie";
+import useCartItem from "./hooks/useCartItem";
 
 const Navbar = () => {
-  const { isLoggedIn, auth, setAuth, search, setSearch } = useAuth();
-  const { navView, setNavView } = useUI();
+  const { isLoggedIn, auth, setAuth } = useAuth();
+  const { navView, setNavView, search, setSearch } = useUI();
   const { searchProduct } = useProduct();
+  const { setCartItem } = useCartItem();
+  const navigate = useNavigate();
   useEffect(() => {
-    searchProduct();
     setNavView(false);
+    isLoggedIn();
+    searchProduct();
   }, []);
   const logOut = async () => {
     try {
       setNavView(false);
       Cookies.remove("auth");
       await axios.get("/logout");
-      await isLoggedIn();
       await setAuth({});
+      await isLoggedIn();
+      await setCartItem([]);
+      await setSearch("");
+      await navigate("/signin");
     } catch (error) {
       console.log(error);
     }

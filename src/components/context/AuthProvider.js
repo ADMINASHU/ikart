@@ -6,7 +6,6 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
-  const [search, setSearch] = useState("");
 
   useEffect(() => {
     // console.log("cookie",Cookies.get("auth"));
@@ -35,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, auth, search, setSearch }}>
+    <AuthContext.Provider value={{ isLoggedIn, auth, setAuth }}>
       {children}
     </AuthContext.Provider>
   );

@@ -20,7 +20,6 @@ import Wishlist from "./components/Wishlist";
 import Search from "./components/Search";
 
 const App = () => {
- 
   return (
     <div className="App">
       <BrowserRouter>
@@ -46,8 +45,9 @@ const App = () => {
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
           </Route>
-
-          <Route path="/cart" element={<Cart />} />
+          <Route element={<ProtectedAuthRoute />}>
+            <Route path="/cart" element={<Cart />} />
+          </Route>
           <Route path="/*" element={<Page404 />} />
         </Routes>
         <Footer />

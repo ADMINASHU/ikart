@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "../../api/axios";
-import useAuth from "../hooks/useAuth";
+import useUI from "../hooks/useUI";
 
 const ProductContext = createContext({});
 
 export const ProductProvider = ({ children }) => {
-  const { search, setSearch } = useAuth();
+  const { search, setSearch } = useUI();
   const [products, setProduct] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export const ProductProvider = ({ children }) => {
   const getProduct = async () => {
     try {
       const response = await axios.get("/product");
-      setProduct(response.data);
+      await setProduct(response.data);
     } catch (error) {
       console.log(error);
     }
