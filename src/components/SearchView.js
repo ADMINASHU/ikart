@@ -1,12 +1,25 @@
 import ProductCard from "./ProductCard";
-import useProduct from "./hooks/useProduct";
+import { useGetSearchProductsQuery } from "../services/productApi";
+import { useSelector } from "react-redux";
 
 const SearchView = () => {
-  const { products } = useProduct();
+  const search = useSelector((state) => state.search.search);
+  const {
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+    data: products,
+  } = useGetSearchProductsQuery(search);
+
 
   return (
     <div className="cards">
-      {products?.length ? (
+      {isError ? (
+        <h2>`Oh no, there was an error ${error}`</h2>
+      ) : isLoading ? (
+        <h2>Loading...</h2>
+      ) : isSuccess && products?.length ? (
         products?.map((product, index) => {
           return (
             <ProductCard
@@ -15,6 +28,7 @@ const SearchView = () => {
               price={product.productPrice}
               color={product.productColor}
               image={product.productImage}
+              id={product._id}
             />
           );
         })

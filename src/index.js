@@ -3,21 +3,19 @@ import ReactDOM from "react-dom/client";
 import "./index.scss";
 import App from "./App";
 import { AuthProvider } from "./components/context/AuthProvider";
-import { ProductProvider } from "./components/context/ProductProvider";
-import { UIProvider } from "./components/context/UIProvider";
 import { CartProvider } from "./components/context/CartProvider";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ProductProvider>
+    <Provider store={store}>
       <AuthProvider>
         <CartProvider>
-          <UIProvider>
-            <App />
-          </UIProvider>
+          <App />
         </CartProvider>
       </AuthProvider>
-    </ProductProvider>
+    </Provider>
   </React.StrictMode>
 );

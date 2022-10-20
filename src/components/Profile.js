@@ -4,10 +4,10 @@ import useUI from "./hooks/useUI";
 
 const Profile = () => {
   const { isLoggedIn } = useAuth();
-  const { setNavView } = useUI();
+  // const { setNavView } = useUI();
   useEffect(() => {
     isLoggedIn();
-    setNavView(false);
+    // setNavView(false);
   }, []);
 
   return <div>Profile</div>;

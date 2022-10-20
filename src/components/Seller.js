@@ -7,10 +7,10 @@ import useUI from "./hooks/useUI";
 const Seller = () => {
   const [formView, setFormView] = useState(false);
   const { isLoggedIn } = useAuth();
-  const { setNavView } = useUI();
+  // const { setNavView } = useUI();
   useEffect(() => {
     isLoggedIn();
-    setNavView(false);
+    // setNavView(false);
   }, []);
 
   return (

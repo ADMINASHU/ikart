@@ -1,15 +1,23 @@
 import ProductCard from "./ProductCard";
-import useProduct from "./hooks/useProduct";
-
-
+import { useGetAllProductsQuery } from "../services/productApi";
 
 const ProductView = () => {
-  const { products } = useProduct();
 
+  const {
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+    data: products,
+  } = useGetAllProductsQuery();
 
   return (
     <div className="cards">
-      {products?.length ? (
+      {isError ? (
+        <>`Oh no, there was an error ${error}`</>
+      ) : isLoading ? (
+        <>Loading...</>
+      ) : isSuccess ? (
         products?.map((product, index) => {
           return (
             <ProductCard
@@ -19,7 +27,6 @@ const ProductView = () => {
               color={product.productColor}
               image={product.productImage}
               id={product._id}
-              
             />
           );
         })

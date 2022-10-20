@@ -5,25 +5,16 @@ import useAuth from "./hooks/useAuth";
 import useUI from "./hooks/useUI";
 
 const Home = () => {
-  const { products, getProduct } = useProduct();
   const { isLoggedIn } = useAuth();
-  const { setNavView } = useUI();
+  // const { setNavView } = useUI();
   useEffect(() => {
-    getProduct();
     isLoggedIn();
-    setNavView(false);
+    // setNavView(false);
   }, []);
 
   return (
     <div className="product">
-      {products?.length ? (
-        <>
-          {/* <ProductFilter /> */}
-          <ProductView />
-        </>
-      ) : (
-        <h2>Loading...</h2>
-      )}
+      <ProductView />
     </div>
   );
 };

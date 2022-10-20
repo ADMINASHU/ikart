@@ -5,7 +5,6 @@ import useUI from "../hooks/useUI";
 const ProductContext = createContext({});
 
 export const ProductProvider = ({ children }) => {
-  const { search, setSearch } = useUI();
   const [products, setProduct] = useState([]);
 
   useEffect(() => {
@@ -20,7 +19,7 @@ export const ProductProvider = ({ children }) => {
       console.log(error);
     }
   };
-  const searchProduct = async () => {
+  const searchProduct = async (search) => {
     try {
       if (search) {
         const response = await axios.get(`/searchProduct/${search.trim()}`); // `/searchProduct/${search}`

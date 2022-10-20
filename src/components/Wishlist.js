@@ -4,10 +4,10 @@ import useUI from "./hooks/useUI";
 
 const Wishlist = () => {
   const { isLoggedIn } = useAuth();
-  const { setNavView } = useUI();
+  // const { setNavView } = useUI();
   useEffect(() => {
     isLoggedIn();
-    setNavView(false);
+    // setNavView(false);
   }, []);
 
   return <div>Wishlist</div>;

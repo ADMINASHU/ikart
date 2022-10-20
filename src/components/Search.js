@@ -7,22 +7,16 @@ import useUI from "./hooks/useUI";
 const Search = () => {
   const { products, searchProduct } = useProduct();
   const { isLoggedIn } = useAuth();
-  const { setNavView } = useUI();
+  // const { setNavView } = useUI();
   useEffect(() => {
-    searchProduct();
+    // searchProduct();
     isLoggedIn();
-    setNavView(false);
+    // setNavView(false);
   }, []);
   return (
     <div className="product">
-      {products?.length ? (
-        <>
-          <ProductFilter />
-          <SearchView />
-        </>
-      ) : (
-        <h2>Product not Found</h2>
-      )}
+      <ProductFilter />
+      <SearchView />
     </div>
   );
 };

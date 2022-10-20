@@ -6,12 +6,12 @@ import useCartItem from "./hooks/useCartItem";
 import useAuth from "./hooks/useAuth";
 
 const Cart = () => {
-  const { setNavView } = useUI();
+  // const { setNavView } = useUI();
   const { isLoggedIn } = useAuth();
   const { cartItem, removeCartItem, getCartItems } = useCartItem();
   useEffect(() => {
     getCartItems();
-    setNavView(false);
+    // setNavView(false);
     isLoggedIn();
   }, []);
 

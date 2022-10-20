@@ -7,8 +7,8 @@ export const UIProvider = ({ children }) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    setNavView(false);
-    setSearch("");
+    // setNavView(false);
+    // setSearch("");
   }, []);
 
   return (

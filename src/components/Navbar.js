@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
-import useUI from "./hooks/useUI";
 import {
   faCartShopping,
   faCircleUser,
@@ -14,27 +13,37 @@ import useProduct from "./hooks/useProduct";
 import axios from "../api/axios";
 import Cookies from "js-cookie";
 import useCartItem from "./hooks/useCartItem";
+import { setSearch } from "../features/searchSlice";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
+  const [navView, setNavView] = useState(false);
+  const [value, setValue] = useState("");
+
+  const dispatch = useDispatch();
+
   const { isLoggedIn, auth, setAuth } = useAuth();
-  const { navView, setNavView, search, setSearch } = useUI();
-  const { searchProduct } = useProduct();
+  // const { searchProduct } = useProduct();
   const { setCartItem } = useCartItem();
+
   const navigate = useNavigate();
+
   useEffect(() => {
     setNavView(false);
     isLoggedIn();
-    searchProduct();
+    // searchProduct(search);
   }, []);
+
   const logOut = async () => {
     try {
       setNavView(false);
+      dispatch(setSearch(""));
       Cookies.remove("auth");
       await axios.get("/logout");
       await setAuth({});
       await isLoggedIn();
       await setCartItem([]);
-      await setSearch("");
+
       await navigate("/signin");
     } catch (error) {
       console.log(error);
@@ -52,16 +61,16 @@ const Navbar = () => {
         <input
           type="text"
           placeholder="Search Products"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
 
-        {search.trim() ? (
+        {value.trim() ? (
           <NavLink to={"/search"}>
-            <button onClick={() => searchProduct()}>Search</button>
+            <button onClick={() => dispatch(setSearch(value.trim()))}>Search</button>
           </NavLink>
         ) : (
-          <button onClick={() => setSearch("")}>Search</button>
+          <button onClick={() => dispatch(setSearch(""))}>Search</button>
         )}
       </div>
       <ul className="links">
@@ -91,7 +100,7 @@ const Navbar = () => {
             <li className="link">
               <NavLink
                 onMouseOver={() => setNavView(true)}
-                onClick={() => setNavView((prevState) => !prevState)}
+                onClick={() => setNavView((navView) => !navView)}
               >
                 {auth?.username}
               </NavLink>

@@ -18,8 +18,10 @@ import Seller from "./components/Seller";
 import Orders from "./components/Orders";
 import Wishlist from "./components/Wishlist";
 import Search from "./components/Search";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const search = useSelector((state) => state.search.search);
   return (
     <div className="App">
       <BrowserRouter>
