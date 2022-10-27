@@ -1,14 +1,22 @@
 import React, { useEffect } from 'react'
-import useAuth from "./hooks/useAuth";
-import useUI from './hooks/useUI';
+import { useGetAuthUserQuery } from '../api/authApi';
 
 const About = () => {
-  const { isLoggedIn } = useAuth();
-  // const {setNavView} = useUI()
-  useEffect(() => {
-    isLoggedIn();
-    // setNavView(false);
-  }, []);
+
+  const {
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+    data:authUser,
+  } = useGetAuthUserQuery()
+
+// console.log("from profile",authUser);
+console.log("from about",authUser?.username);
+
+
+
+
 
   return (
     <div>About</div>

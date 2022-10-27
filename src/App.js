@@ -1,23 +1,23 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
+import Navbar from "./components/navbar/Navbar";
+import Home from "./components/home/Home";
 import About from "./components/About";
-import Product from "./components/Product";
-import Profile from "./components/Profile";
-import Signin from "./components/Signin";
-import Signup from "./components/Singup";
+import Product from "./components/product/Product";
+import Profile from "./components/profile/Profile";
+import Signin from "./components/auth/Signin";
+import Signup from "./components/auth/Singup";
 import Page404 from "./components/Page404";
-import Footer from "./components/Footer";
-import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
-import UnProtectedRoute from "./components/UnProtectedRoute";
-import SellerAuthRoute from "./components/SellerAuthRoute";
-import UserAuthRoute from "./components/UserAuthRoute";
-import Cart from "./components/Cart";
-import Seller from "./components/Seller";
+import Footer from "./components/navbar/Footer";
+import ProtectedAuthRoute from "./components/routes/ProtectedAuthRoute";
+import UnProtectedRoute from "./components/routes/UnProtectedRoute";
+import SellerAuthRoute from "./components/routes/SellerAuthRoute";
+import UserAuthRoute from "./components/routes/UserAuthRoute";
+import Cart from "./components/cart/Cart";
+import Seller from "./components/seller/Seller";
 import Orders from "./components/Orders";
 import Wishlist from "./components/Wishlist";
-import Search from "./components/Search";
+import Search from "./components/search/Search";
 import { useSelector } from "react-redux";
 
 const App = () => {
