@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { Authorized, UnAuthorized } from "../hiddenLink/HiddenLink";
 import {
   faCartShopping,
   faCircleUser,
@@ -8,28 +9,29 @@ import {
   faPowerOff,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { setSearch } from "../../features/searchSlice";
 import { useDispatch } from "react-redux";
-import { useGetAuthUserQuery, useGetLogOutMutation } from "../../api/authApi";
+import { useGetAuthUserQuery, useGetCartItemsQuery, useGetLogOutMutation } from "../../api/iKartApi";
+
 
 const Navbar = () => {
-  const {
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-    data: auth,
-    refetch,
-  } = useGetAuthUserQuery();
-  const [getLogOut] = useGetLogOutMutation();
+  // get user info
+  const { data: user } = useGetAuthUserQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  const [getLogOut] = useGetLogOutMutation(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  const { data: cart } = useGetCartItemsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const [navView, setNavView] = useState(false);
   const [value, setValue] = useState("");
 
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     setNavView(false);
@@ -39,7 +41,7 @@ const Navbar = () => {
     setNavView(false);
     dispatch(setSearch(""));
     getLogOut();
-    navigate("/signin");
+    // navigate("/signin");
   };
 
   return (
@@ -71,83 +73,87 @@ const Navbar = () => {
         <li className="link">
           <NavLink to={"/about"}>About</NavLink>
         </li>
-
-        {auth ? (
-          (auth?.role === "Seller" && (
+        <Authorized>
+          {(user?.role === "Seller" && (
             <li className="link">
               <NavLink to={"/product"}>Product</NavLink>
             </li>
           )) ||
-          (auth?.role === "User" && (
-            <li className="link">
-              <NavLink to={"/seller"}>Become a seller</NavLink>
-            </li>
-          ))
-        ) : (
+            (user?.role === "User" && (
+              <li className="link">
+                <NavLink to={"/seller"}>Become a seller</NavLink>
+              </li>
+            ))}
+        </Authorized>
+        <UnAuthorized>
           <li className="link">
             <NavLink to={"/seller"}>Become a seller</NavLink>
           </li>
-        )}
+        </UnAuthorized>
 
-        {auth ? (
-          auth?.username && (
+        <Authorized>
+          {user?.uname && (
             <li className="link">
               <NavLink
                 onMouseOver={() => setNavView(true)}
                 onClick={() => {
                   setNavView((navView) => !navView);
-                  refetch();
                 }}
               >
-                {auth?.username}
+                {user?.uname}
               </NavLink>
             </li>
-          )
-        ) : (
+          )}
+        </Authorized>
+        <UnAuthorized>
           <li className="link">
             <NavLink to={"/signin"}>SignIn</NavLink>
           </li>
-        )}
+        </UnAuthorized>
+
         <li className="link">
           <NavLink to={"/cart"}>
             <FontAwesomeIcon icon={faCartShopping} size="sm" />
+            <Authorized>
+              {cart?.cartCount > 0 && <span>{cart?.cartCount}</span>}
+            </Authorized>
           </NavLink>
         </li>
       </ul>
-      {auth?.username && navView ? (
-        <div
-          className="profileNav"
-          onMouseOver={() => setNavView(true)}
-          onMouseOut={() => setNavView(false)}
-        >
-          <ul className="profileLinks">
-            <li className="profileLink">
-              <NavLink to={"/profile"}>
-                <FontAwesomeIcon icon={faCircleUser} size="sm" />
-                Profile
-              </NavLink>
-            </li>
-            <li className="profileLink">
-              <NavLink to={"/orders"}>
-                <FontAwesomeIcon icon={faBox} size="sm" />
-                Orders
-              </NavLink>
-            </li>
-            <li className="profileLink">
-              <NavLink to={"/wishlist"}>
-                <FontAwesomeIcon icon={faHeart} size="sm" />
-                Wishlist
-              </NavLink>
-            </li>
-            <li className="profileLink" onClick={logOut}>
-              <FontAwesomeIcon icon={faPowerOff} size="sm" />
-              Log Out
-            </li>
-          </ul>
-        </div>
-      ) : (
-        <></>
-      )}
+      <Authorized>
+        {navView && (
+          <div
+            className="profileNav"
+            onMouseOver={() => setNavView(true)}
+            onMouseOut={() => setNavView(false)}
+          >
+            <ul className="profileLinks">
+              <li className="profileLink">
+                <NavLink to={"/profile"}>
+                  <FontAwesomeIcon icon={faCircleUser} size="sm" />
+                  Profile
+                </NavLink>
+              </li>
+              <li className="profileLink">
+                <NavLink to={"/orders"}>
+                  <FontAwesomeIcon icon={faBox} size="sm" />
+                  Orders
+                </NavLink>
+              </li>
+              <li className="profileLink">
+                <NavLink to={"/wishlist"}>
+                  <FontAwesomeIcon icon={faHeart} size="sm" />
+                  Wishlist
+                </NavLink>
+              </li>
+              <li className="profileLink" onClick={logOut}>
+                <FontAwesomeIcon icon={faPowerOff} size="sm" />
+                Log Out
+              </li>
+            </ul>
+          </div>
+        )}
+      </Authorized>
     </div>
   );
 };

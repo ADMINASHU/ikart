@@ -1,20 +1,6 @@
-import React, { useEffect } from "react";
-import { useGetAuthUserQuery } from "../../api/authApi";
-
+import React from "react";
 
 const Profile = () => {
-  const {
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-    data:authUser,
-  } = useGetAuthUserQuery()
-
-
-
-
-
   return <div>Profile</div>;
 };
 

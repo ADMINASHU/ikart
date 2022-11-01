@@ -1,6 +1,10 @@
 import React from "react";
+import { useDeleteSellerProductMutation } from "../../api/iKartApi";
+
 
 const SellerProductCard = (prop) => {
+  const [deleteSellerProduct] = useDeleteSellerProductMutation();
+
   return (
     <div className="card">
       <div className="productImage">
@@ -20,7 +24,10 @@ const SellerProductCard = (prop) => {
           >
             edit
           </button>
-          <button className="del" onClick={() => prop.deleteProduct(prop.id)}>
+          <button
+            className="del"
+            onClick={() => deleteSellerProduct({ id: prop.id })}
+          >
             del
           </button>
         </div>

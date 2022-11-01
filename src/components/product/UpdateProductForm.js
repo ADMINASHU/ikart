@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
-
-import {
-  useUpdateSellerProductMutation,
-  useGetProductDataQuery,
-} from "../../api/productApi";
-import { useGetAuthUserQuery } from "../../api/authApi";
+// toast
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useGetProductDataQuery, useUpdateSellerProductMutation } from "../../api/iKartApi";
+// toast
 
 const UpdateProductForm = ({ setUpdateFormView, id }) => {
-  const { data: user } = useGetAuthUserQuery();
   const [updateSellerProduct] = useUpdateSellerProductMutation();
 
-  const { data: sellerProducts } = useGetProductDataQuery({
-    id: id,
-    token: user.accessToken,
-  });
-  console.log("from update product form> Product:", sellerProducts);
+  const { data: sellerProducts } = useGetProductDataQuery(undefined, { refetchOnMountOrArgChange: true });
+  // console.log("from update product form> Product:", sellerProducts);
 
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
@@ -39,19 +33,10 @@ const UpdateProductForm = ({ setUpdateFormView, id }) => {
     productColor,
     productCode,
     discount,
-    user,
   ]);
 
   // useEffect for set Error
   useEffect(() => {
-    getProductDetails(sellerProducts);
-  }, []);
-
-  const navigate = useNavigate();
-
-  // functions define ...................................................
-
-  const getProductDetails = (sellerProducts) => {
     setProductName(sellerProducts?.productName);
     setProductPrice(sellerProducts?.productPrice);
     setProductQuantity(sellerProducts?.productQuantity);
@@ -60,25 +45,24 @@ const UpdateProductForm = ({ setUpdateFormView, id }) => {
     setProductColor(sellerProducts?.productColor);
     setProductCode(sellerProducts?.productCode);
     setDiscount(sellerProducts?.productDiscount);
-  };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("productName", productName);
+    formData.append("productPrice", productPrice);
+    formData.append("productQuantity", productQuantity);
+    formData.append("productCategory", productCategory);
+    formData.append("productImage", productImage);
+    formData.append("productColor", productColor);
+    formData.append("productDiscount", discount);
+    formData.append("productCode", productCode);
 
     try {
-      await updateSellerProduct({
+      const response = await updateSellerProduct({
         id: id,
-        token: user.accessToken,
-        body: {
-          productName: productName,
-          productPrice: productPrice,
-          productQuantity: productQuantity,
-          productCategory: productCategory,
-          productImage: productImage,
-          productColor: productColor,
-          productCode: productCode,
-          productDiscount: discount,
-        },
+        body: formData,
       });
 
       setProductName("");
@@ -90,131 +74,141 @@ const UpdateProductForm = ({ setUpdateFormView, id }) => {
       setProductCode("");
       setDiscount("");
       setUpdateFormView(false);
+      toast(response.message);
     } catch (error) {
-      if (!error?.response) {
-        setErrMsg("Server not responding");
-      } else if (error.response?.status === 400) {
-        setErrMsg("Please fill all field");
-      } else {
-        setErrMsg("Adding Product failed");
-      }
+      setErrMsg("Adding Product failed");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>product Name: </label>
-      <div className="inputBox">
-        <input
-          className="input"
-          type="text"
-          placeholder="productName"
-          name="productName"
-          value={productName}
-          autoComplete="none"
-          required
-          onChange={(e) => setProductName(e.target.value)}
-        />
-      </div>
-      <label>Price: </label>
-      <div className="inputBox">
-        <input
-          className="input"
-          type="text"
-          placeholder="productPrice"
-          name="productPrice"
-          value={productPrice}
-          autoComplete="none"
-          required
-          onChange={(e) => setProductPrice(e.target.value)}
-        />
-      </div>
-      <label>Discount: </label>
-      <div className="inputBox">
-        <input
-          className="input"
-          type="text"
-          placeholder="Discount"
-          name="Discount"
-          value={discount}
-          autoComplete="none"
-          required
-          onChange={(e) => setDiscount(e.target.value)}
-        />
-      </div>
-      <label>Quantity: </label>
-      <div className="inputBox">
-        <input
-          className="input"
-          type="text"
-          placeholder="productQuantity"
-          name="productQuantity"
-          value={productQuantity}
-          autoComplete="none"
-          required
-          onChange={(e) => setProductQuantity(e.target.value)}
-        />
-      </div>
-      <label>Category: </label>
-      <div className="inputBox">
-        <input
-          className="input"
-          type="text"
-          placeholder="productCategory"
-          name="productCategory"
-          value={productCategory}
-          autoComplete="none"
-          required
-          onChange={(e) => setProductCategory(e.target.value)}
-        />
-      </div>
-      <label>Image: </label>
-      <div className="inputBox">
-        <input
-          className="input"
-          type="text"
-          placeholder="productImage"
-          name="productImage"
-          value={productImage}
-          autoComplete="none"
-          required
-          onChange={(e) => setProductImage(e.target.value)}
-        />
-      </div>
-      <label>Color: </label>
-      <div className="inputBox">
-        <input
-          className="input"
-          type="text"
-          placeholder="productColor"
-          name="productColor"
-          value={productColor}
-          autoComplete="none"
-          required
-          onChange={(e) => setProductColor(e.target.value)}
-        />
-      </div>
-      <label>Product Code: </label>
-      <div className="inputBox">
-        <input
-          className="input"
-          type="text"
-          placeholder="productCode"
-          name="productCode"
-          value={productCode}
-          autoComplete="none"
-          required
-          onChange={(e) => setProductCode(e.target.value)}
-        />
-      </div>
-      <br />
-      <button className="btn btn-seller" type="submit">
-        Update Product
-      </button>
-      <br />
-      <span className="invalidError">{errMsg}</span>
-      <br />
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>product Name: </label>
+        <div className="inputBox">
+          <input
+            className="input"
+            type="text"
+            placeholder="productName"
+            name="productName"
+            value={productName}
+            autoComplete="none"
+            required
+            onChange={(e) => setProductName(e.target.value)}
+          />
+        </div>
+        <label>Price: </label>
+        <div className="inputBox">
+          <input
+            className="input"
+            type="text"
+            placeholder="productPrice"
+            name="productPrice"
+            value={productPrice}
+            autoComplete="none"
+            required
+            onChange={(e) => setProductPrice(e.target.value)}
+          />
+        </div>
+        <label>Discount: </label>
+        <div className="inputBox">
+          <input
+            className="input"
+            type="text"
+            placeholder="Discount"
+            name="Discount"
+            value={discount}
+            autoComplete="none"
+            required
+            onChange={(e) => setDiscount(e.target.value)}
+          />
+        </div>
+        <label>Quantity: </label>
+        <div className="inputBox">
+          <input
+            className="input"
+            type="text"
+            placeholder="productQuantity"
+            name="productQuantity"
+            value={productQuantity}
+            autoComplete="none"
+            required
+            onChange={(e) => setProductQuantity(e.target.value)}
+          />
+        </div>
+        <label>Category: </label>
+        <div className="inputBox">
+          <input
+            className="input"
+            type="text"
+            placeholder="productCategory"
+            name="productCategory"
+            value={productCategory}
+            autoComplete="none"
+            required
+            onChange={(e) => setProductCategory(e.target.value)}
+          />
+        </div>
+        <label>Image: </label>
+        <div className="inputBox">
+          <input
+            className="input"
+            type="file"
+            placeholder="productImage"
+            filename="productImage"
+            accept="image/*"
+            multiple
+            autoComplete="none"
+            required
+            onChange={(e) => setProductImage(e.target.files[0])}
+          />
+        </div>
+        <label>Color: </label>
+        <div className="inputBox">
+          <input
+            className="input"
+            type="text"
+            placeholder="productColor"
+            name="productColor"
+            value={productColor}
+            autoComplete="none"
+            required
+            onChange={(e) => setProductColor(e.target.value)}
+          />
+        </div>
+        <label>Product Code: </label>
+        <div className="inputBox">
+          <input
+            className="input"
+            type="text"
+            placeholder="productCode"
+            name="productCode"
+            value={productCode}
+            autoComplete="none"
+            required
+            onChange={(e) => setProductCode(e.target.value)}
+          />
+        </div>
+        <br />
+        <button className="btn btn-seller" type="submit">
+          Update Product
+        </button>
+        <br />
+        <span className="invalidError">{errMsg}</span>
+        <br />
+      </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+    </>
   );
 };
 

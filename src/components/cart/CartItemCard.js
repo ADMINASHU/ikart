@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
-import { useGetAuthUserQuery } from "../../api/authApi";
-import {
-  useAddCartItemMutation,
-  useRemoveCartItemMutation,
-} from "../../api/kartApi";
+import React from "react";
+import { useAddCartItemMutation, useRemoveCartItemMutation } from "../../api/iKartApi";
 import "./Cart.scss";
 
 const CartItemCard = ({ name, price, color, image, seller, id, count }) => {
-  const { data: user } = useGetAuthUserQuery();
+
 
   const [addCartItem] = useAddCartItemMutation();
   const [removeCartItem] = useRemoveCartItemMutation();
@@ -20,9 +16,7 @@ const CartItemCard = ({ name, price, color, image, seller, id, count }) => {
           <button
             onClick={() => {
               addCartItem({
-                id: id,
-                token: user.accessToken,
-                body: { userId: user.userId, count: count - 1 },
+                body: { id: id, count: count - 1 },
               });
             }}
           >
@@ -32,9 +26,7 @@ const CartItemCard = ({ name, price, color, image, seller, id, count }) => {
           <button
             onClick={() => {
               addCartItem({
-                id: id,
-                token: user.accessToken,
-                body: { userId: user.userId, count: count + 1 },
+                body: { id: id, count: count + 1 },
               });
             }}
           >
@@ -54,8 +46,6 @@ const CartItemCard = ({ name, price, color, image, seller, id, count }) => {
             onClick={() =>
               removeCartItem({
                 id: id,
-                token: user.accessToken,
-                body: { userId: user.userId },
               })
             }
           >

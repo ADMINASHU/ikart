@@ -1,26 +1,7 @@
-import React, { useEffect } from 'react'
-import { useGetAuthUserQuery } from '../api/authApi';
+import React from "react";
 
 const About = () => {
+  return <div>About</div>;
+};
 
-  const {
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-    data:authUser,
-  } = useGetAuthUserQuery()
-
-// console.log("from profile",authUser);
-console.log("from about",authUser?.username);
-
-
-
-
-
-  return (
-    <div>About</div>
-  )
-}
-
-export default About
+export default About;

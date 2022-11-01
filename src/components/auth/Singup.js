@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./signup.scss";
+// toast
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// toast
 import {
   faUser,
   faEnvelope,
@@ -9,22 +13,13 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  useGetAuthUserQuery,
-  useGetLogOutMutation,
-  useGetSignUpMutation,
-} from "../../api/authApi";
+import { useGetAuthQuery, useGetLogOutMutation, useGetSignUpMutation } from "../../api/iKartApi";
+
 
 const Signup = () => {
   const [getSignUP] = useGetSignUpMutation();
   const [getLogOut] = useGetLogOutMutation();
-  const {
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-    data: auth,
-  } = useGetAuthUserQuery();
+  const { data: auth } = useGetAuthQuery();
 
   const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
   const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -91,30 +86,22 @@ const Signup = () => {
       return;
     }
     try {
-      getSignUP({
+      const response = await getSignUP({
         uname: userName,
         email: email,
         password: password,
         cPassword: matchPassword,
-        role: "User",
       });
-      if (auth?.username) {
+      if (auth) {
         setUserName("");
         setEmail("");
         setPassword("");
         setMatchPassword("");
-        await navigate("/profile");
-      } else {
-        getLogOut();
-      }
+        // navigate("/profile");
+      } 
+      toast(response?.message);
     } catch (error) {
-      if (!error?.response) {
-        setErrMsg("Server not responding");
-      } else if (error.response?.status === 409) {
-        setErrMsg("Username already existed");
-      } else {
-        setErrMsg("User Registration Failed");
-      }
+      setErrMsg("User Registration Failed");
     }
   };
 
@@ -252,6 +239,18 @@ const Signup = () => {
           <NavLink to={"/signin"}>SignIn</NavLink>
         </p>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

@@ -1,23 +1,21 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useGetAuthUserQuery } from "../../api/authApi";
+import { useGetAuthQuery } from "../../api/iKartApi";
 
 const ProtectedAuthRoute = () => {
   const {
     isLoading,
-    isSuccess,
     isError,
     error,
     data: auth,
-  } = useGetAuthUserQuery();
-
+  } = useGetAuthQuery(undefined, { refetchOnMountOrArgChange: true });
 
   const location = useLocation();
 
-  return isError ? (
-    <h2>`Oh no, there was an error ${error}`</h2>
-  ) : isLoading ? (
+  return isLoading ? (
     <h2>Loading...</h2>
-  ) : isSuccess && auth?.username ? (
+  ) : isError ? (
+    <h2>`Oh no, there was an error ${error}`</h2>
+  ) : auth ? (
     <Outlet />
   ) : (
     <Navigate to="/signin" state={{ from: location }} replace />

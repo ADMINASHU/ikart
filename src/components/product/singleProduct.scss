@@ -1,0 +1,40 @@
+.singleProductPage {
+    display: flex;
+    width: 100vw;
+    padding: 60px 2% 0 2%;
+
+    .productImageSlider {
+        width: 40%;
+        height: 90vh;
+        background-color: red;
+
+        .imageSlider {
+            padding: 5px;
+            height: 500px;
+            background-color: rgb(35, 187, 14);
+            display: flex;
+            justify-content: center;
+            // align-items: center;
+
+            .slider {
+                background-color: rgb(14, 158, 177);
+                width: 110px;
+            }
+
+            .productImage {
+                background-color: rgb(76, 22, 163);
+                width: 500px;
+            }
+        }
+
+        .productAction {
+            height: 100px;
+            background-color: rgb(207, 228, 22);
+        }
+    }
+
+    .productDetails {
+        width: 60%;
+        background-color: rgb(235, 50, 219);
+    }
+}

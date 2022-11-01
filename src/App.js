@@ -1,5 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
+
+// toast
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// toast
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import About from "./components/About";
@@ -18,16 +23,16 @@ import Seller from "./components/seller/Seller";
 import Orders from "./components/Orders";
 import Wishlist from "./components/Wishlist";
 import Search from "./components/search/Search";
-import { useSelector } from "react-redux";
+import SingleProduct from "./components/product/SingleProduct";
 
 const App = () => {
-  const search = useSelector((state) => state.search.search);
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/productDetails" element={<SingleProduct />} />
           <Route path="/search" element={<Search />} />
           <Route path="/about" element={<About />} />
 
@@ -53,6 +58,18 @@ const App = () => {
           <Route path="/*" element={<Page404 />} />
         </Routes>
         <Footer />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </BrowserRouter>
     </div>
   );

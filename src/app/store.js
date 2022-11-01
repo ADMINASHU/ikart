@@ -1,19 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import searchSliceReducer from "../features/searchSlice";
-import { authApi } from "../api/authApi";
-import { productApi } from "../api/productApi";
-import { kartApi } from "../api/kartApi";
-
+import { iKartApi } from "../api/iKartApi";
 
 export const store = configureStore({
   reducer: {
     search: searchSliceReducer,
-    [productApi.reducerPath]: productApi.reducer,
-    [authApi.reducerPath]: authApi.reducer,
-    [kartApi.reducerPath]: kartApi.reducer,
+    [iKartApi.reducerPath]: iKartApi.reducer,
   },
-  middleware: (gDM) => gDM().concat(productApi.middleware).concat(authApi.middleware).concat(kartApi.middleware),
+  middleware: (gDM) => gDM().concat(iKartApi.middleware),
 });
 
 setupListeners(store.dispatch);

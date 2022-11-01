@@ -1,24 +1,22 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useGetAuthUserQuery } from "../../api/authApi";
+import { useGetAuthQuery, useGetAuthUserQuery } from "../../api/iKartApi";
+
+import Page404 from "../Page404";
 
 const UserAuthRoute = () => {
-  const {
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-    data: auth,
-  } = useGetAuthUserQuery();
+  const { data: auth } = useGetAuthQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { isLoading, isError, error, data: user } = useGetAuthUserQuery();
 
   const location = useLocation();
-  return isError ? (
-    <h2>`Oh no, there was an error ${error}`</h2>
-  ) : isLoading ? (
+
+  return isLoading ? (
     <h2>Loading...</h2>
-  ) : isSuccess && auth?.role === "User" ? (
+  ) : isError ? (
+    <h2>`Oh no, there was an error ${error}`</h2>
+  ) : user?.role === "User" ? (
     <Outlet />
-  ) : isSuccess && auth?.role === "Seller" ? (
-    <Navigate to="/product" state={{ from: location }} replace />
+  ) : auth ? (
+    <Page404/>
   ) : (
     <Navigate to="/signin" state={{ from: location }} replace />
   );

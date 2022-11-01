@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetAuthUserQuery, useGetSellerRegistrationMutation } from "../../api/authApi";
+import { useGetAuthUserQuery, useGetSellerRegistrationMutation } from "../../api/iKartApi";
+
 
 const SellerForm = () => {
-  const {
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-    data: auth,
-  } = useGetAuthUserQuery();
+  const { data: auth } = useGetAuthUserQuery();
   const [getSellerRegistration] = useGetSellerRegistrationMutation();
   const [gstin, setGstin] = useState("");
   const [line1, setLine1] = useState("");

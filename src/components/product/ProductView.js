@@ -1,25 +1,21 @@
+import { useGetAllProductsQuery } from "../../api/iKartApi";
 import ProductCard from "./ProductCard";
-import { useGetAllProductsQuery} from "../../api/productApi";
-
 
 const ProductView = () => {
   const {
     isLoading,
-    isSuccess,
     isError,
     error,
     data: products,
-  } = useGetAllProductsQuery();
-
-
+  } = useGetAllProductsQuery(undefined, { refetchOnMountOrArgChange: true });
 
   return (
     <div className="cards">
-      {isError ? (
-        <>`Oh no, there was an error ${error}`</>
-      ) : isLoading ? (
+      {isLoading ? (
         <>Loading...</>
-      ) : isSuccess ? (
+      ) : isError ? (
+        <>`Oh no, there was an error ${error}`</>
+      ) : products?.length ? (
         products?.map((product, index) => {
           return (
             <ProductCard
