@@ -126,6 +126,7 @@ export const iKartApi = createApi({
     // ################################################################
 
     //@public
+    // get All Products
     getAllProducts: builder.query({
       query: () => ({
         url: "product/getAllProduct",
@@ -135,6 +136,7 @@ export const iKartApi = createApi({
     }),
 
     //@public
+    // search product by key value
     getSearchProducts: builder.query({
       query: (search) => ({
         url: `product/searchProduct/${search}`,
@@ -144,7 +146,8 @@ export const iKartApi = createApi({
     }),
 
     //@public
-    getProductData: builder.query({
+    // get single product by id
+    getSingleProduct: builder.query({
       query: (props) => ({
         url: `product/getProduct/${props.id}`,
         method: "GET",
@@ -266,7 +269,7 @@ export const {
   useAddSellerProductMutation,
   useUpdateSellerProductMutation,
   useDeleteSellerProductMutation,
-  useGetProductDataQuery,
+  useGetSingleProductQuery,
   useGetCartItemsQuery,
   useAddCartItemMutation,
   useRemoveCartItemMutation,

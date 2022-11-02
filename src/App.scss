@@ -1,3 +1,8 @@
+body {
+    background-color: rgb(245, 245, 245);
+
+}
+
 .page {
     // margin-top: 40px;
     margin: 40px 5% 20px 5%;
@@ -5,9 +10,9 @@
 
 .navbar {
     width: 100%;
-    height: 40px;
+    height: 50px;
     z-index: 99;
-    // background-color: red;
+    background-color: rgb(0, 23, 66);
     position: fixed;
     top: 0;
     display: flex;
@@ -31,12 +36,48 @@
 
         .i {
             font-size: 2rem;
-            color: rgb(3, 5, 146);
+            color: rgb(255, 255, 255);
         }
 
         .kart {
             font-size: 2rem;
-            color: rgb(248, 1, 248);
+            color: rgb(248, 71, 1);
+        }
+    }
+
+    .search {
+        display: flex;
+        align-items: center;
+        // position: relative;
+        margin: 0 20px;
+        min-width: 200px;
+        width: 40%;
+        height: 30px;
+        background-color: #fff;
+        padding: 0 10px;
+        input {
+            
+            // width: 400px;
+            width: 100%;
+            // height: 30px;
+           
+            border: none;
+            font-size: 16px;
+            color: rgb(0, 23, 66);
+
+            &:focus,
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .button {
+            // position: absolute;
+            height: 20px;
+            width: 20px;
+            // right: 5px;
+            color: rgb(0, 23, 66);
+            cursor: pointer;
         }
     }
 
@@ -55,11 +96,51 @@
             padding: 10px;
             // background-color: #fff;
             cursor: pointer;
+            min-width: 100px;
+            text-align: center;
 
             a {
                 text-decoration: none;
-                color: black;
-                font-size: 1.5rem;
+                color: rgb(255, 255, 255);
+                font-size: 1.2rem;
+            }
+
+            .cartCount {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background-color: #fff;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 10px;
+                font-weight: 500;
+                border: 1px solid rgb(0, 23, 66);
+                color: rgb(0, 23, 66);
+                top: 5px;
+                right: calc(5% + 30px);
+
+            }
+        }
+        .signin{
+            // border: 1px solid rgb(255, 255, 255);
+            background-color: #fff;
+            height: 35px;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            span{
+                color: rgb(0, 23, 66);
+                font-size: 1.2rem;
+                font-weight: 500;
+                cursor: pointer;
+               
+            }
+            &:active{
+                // background-color: red;
+                box-shadow: 0 0 4px 2px rgb(165, 165, 165);
             }
         }
     }
@@ -68,10 +149,24 @@
         position: absolute;
         z-index: 99;
         list-style: none;
-        background-color: rgb(223, 223, 223);
-        top: 40px;
-        right: 5%;
+        background-color: rgb(0, 23, 66);
+        top: 55px;
+        right: calc(5% + 260px);
         border-radius: 10px;
+        box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.411);
+
+        &::before {
+            position: absolute;
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-color: rgb(0, 23, 66);
+            box-shadow: -8px -8px 8px rgba(0, 0, 0, 0.603);
+            z-index: 0;
+            left: 90px;
+            top: -8px;
+            transform: rotateY(0deg) rotate(45deg);
+        }
 
         .profileLinks {
             list-style: none;
@@ -87,6 +182,7 @@
                 a {
                     text-decoration: none;
                     font-size: 1.2rem;
+                    color: #fff;
 
                 }
             }
@@ -97,7 +193,7 @@
 .footer {
     background-color: rgb(238, 238, 238);
     width: 100%;
-    position: fixed;
+    // position: fixed;
     display: flex;
     justify-content: center;
     align-items: flex-end;

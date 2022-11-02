@@ -13,7 +13,7 @@ const ProductCard = (prop) => {
 
   return (
     <div className="card">
-      <NavLink to={"/productDetails"}>
+      <NavLink to={`/product/${prop.id}`}>
         <div className="productImage">
           <img src={prop.image} alt="product" />
         </div>
@@ -22,31 +22,7 @@ const ProductCard = (prop) => {
         <div className="name">{prop.name}</div>
         <div className="color">{prop.color}</div>
         <div className="price">{prop.price}</div>
-        {auth ? (
-          <div className="button">
-            <button className="like">/</button>
-            {itemCount ? (
-              <button>
-                <NavLink to={"/cart"}>
-                  <FontAwesomeIcon icon={faCartShopping} size="sm" /> Go to Cart
-                </NavLink>
-              </button>
-            ) : (
-              <button
-                className="add"
-                onClick={() =>
-                  addCartItem({
-                    body: { id: prop.id, count: 1 },
-                  })
-                }
-              >
-                <NavLink to={"/cart"}>Add To Cart</NavLink>
-              </button>
-            )}
-          </div>
-        ) : (
-          <></>
-        )}
+     
       </div>
     </div>
   );

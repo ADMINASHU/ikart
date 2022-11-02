@@ -7,14 +7,19 @@ import {
   faBox,
   faHeart,
   faPowerOff,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { setSearch } from "../../features/searchSlice";
 import { useDispatch } from "react-redux";
-import { useGetAuthUserQuery, useGetCartItemsQuery, useGetLogOutMutation } from "../../api/iKartApi";
-
+import {
+  useGetAuthUserQuery,
+  useGetCartItemsQuery,
+  useGetLogOutMutation,
+} from "../../api/iKartApi";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   // get user info
   const { data: user } = useGetAuthUserQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -57,19 +62,58 @@ const Navbar = () => {
           placeholder="Search Products"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              dispatch(setSearch(e.target.value.trim()));
+              navigate("/search");
+            }
+          }}
         />
 
         {value.trim() ? (
           <NavLink to={"/search"}>
-            <button onClick={() => dispatch(setSearch(value.trim()))}>
-              Search
-            </button>
+            {/* <button onClick={() => dispatch(setSearch(value.trim()))}> */}
+            <FontAwesomeIcon
+              className="button"
+              onClick={() => dispatch(setSearch(value.trim()))}
+              icon={faSearch}
+              size="sm"
+            />
+            {/* </button> */}
           </NavLink>
         ) : (
-          <button onClick={() => dispatch(setSearch(""))}>Search</button>
+          // <button onClick={() => dispatch(setSearch(""))}>
+          <FontAwesomeIcon
+            className="button"
+            onClick={() => dispatch(setSearch(""))}
+            icon={faSearch}
+            size="sm"
+          />
+          // </button>
         )}
       </div>
       <ul className="links">
+        <Authorized>
+          {user?.uname && (
+            <li className="link">
+              <NavLink
+                // onMouseOver={() => setNavView(true)}
+                onClick={() => {
+                  setNavView((navView) => !navView);
+                }}
+              >
+                {user?.uname}
+              </NavLink>
+            </li>
+          )}
+        </Authorized>
+        <UnAuthorized>
+          <li className="link signin">
+            <NavLink to={"/signin"}>
+              <span>SignIn</span>{" "}
+            </NavLink>
+          </li>
+        </UnAuthorized>
         <li className="link">
           <NavLink to={"/about"}>About</NavLink>
         </li>
@@ -91,31 +135,13 @@ const Navbar = () => {
           </li>
         </UnAuthorized>
 
-        <Authorized>
-          {user?.uname && (
-            <li className="link">
-              <NavLink
-                onMouseOver={() => setNavView(true)}
-                onClick={() => {
-                  setNavView((navView) => !navView);
-                }}
-              >
-                {user?.uname}
-              </NavLink>
-            </li>
-          )}
-        </Authorized>
-        <UnAuthorized>
-          <li className="link">
-            <NavLink to={"/signin"}>SignIn</NavLink>
-          </li>
-        </UnAuthorized>
-
         <li className="link">
           <NavLink to={"/cart"}>
             <FontAwesomeIcon icon={faCartShopping} size="sm" />
             <Authorized>
-              {cart?.cartCount > 0 && <span>{cart?.cartCount}</span>}
+              {cart?.cartCount > 0 && (
+                <span className="cartCount">{cart?.cartCount}</span>
+              )}
             </Authorized>
           </NavLink>
         </li>
@@ -130,25 +156,35 @@ const Navbar = () => {
             <ul className="profileLinks">
               <li className="profileLink">
                 <NavLink to={"/profile"}>
-                  <FontAwesomeIcon icon={faCircleUser} size="sm" />
-                  Profile
+                  <div>
+                    <FontAwesomeIcon icon={faCircleUser} size="sm" />
+                    &nbsp; Profile
+                  </div>
                 </NavLink>
               </li>
               <li className="profileLink">
                 <NavLink to={"/orders"}>
-                  <FontAwesomeIcon icon={faBox} size="sm" />
-                  Orders
+                  <div>
+                    <FontAwesomeIcon icon={faBox} size="sm" />
+                    &nbsp; Orders
+                  </div>
                 </NavLink>
               </li>
               <li className="profileLink">
                 <NavLink to={"/wishlist"}>
-                  <FontAwesomeIcon icon={faHeart} size="sm" />
-                  Wishlist
+                  <div>
+                    <FontAwesomeIcon icon={faHeart} size="sm" />
+                    &nbsp; Wishlist
+                  </div>
                 </NavLink>
               </li>
               <li className="profileLink" onClick={logOut}>
-                <FontAwesomeIcon icon={faPowerOff} size="sm" />
-                Log Out
+                <NavLink>
+                  <div>
+                    <FontAwesomeIcon icon={faPowerOff} size="sm" />
+                    &nbsp; Log Out
+                  </div>
+                </NavLink>
               </li>
             </ul>
           </div>

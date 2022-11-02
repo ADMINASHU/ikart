@@ -3,13 +3,19 @@ import React, { useEffect, useState } from "react";
 // toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useGetProductDataQuery, useUpdateSellerProductMutation } from "../../api/iKartApi";
+import {
+  useGetSingleProductQuery,
+  useUpdateSellerProductMutation,
+} from "../../api/iKartApi";
 // toast
 
 const UpdateProductForm = ({ setUpdateFormView, id }) => {
   const [updateSellerProduct] = useUpdateSellerProductMutation();
 
-  const { data: sellerProducts } = useGetProductDataQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { data: sellerProducts } = useGetSingleProductQuery(
+    { id },
+    { refetchOnMountOrArgChange: true }
+  );
   // console.log("from update product form> Product:", sellerProducts);
 
   const [productName, setProductName] = useState("");

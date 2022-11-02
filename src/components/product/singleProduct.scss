@@ -1,40 +1,183 @@
 .singleProductPage {
     display: flex;
-    width: 100vw;
-    padding: 60px 2% 0 2%;
+    // width: 100vw;
+    margin: 0px 4%;
+    padding-top: 70px;
+    background-color: rgb(255, 255, 255);
 
-    .productImageSlider {
+
+    .productImageSlider{
         width: 40%;
         height: 90vh;
-        background-color: red;
+        // background-color: red;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        position: sticky;
+        top: 70px;
 
         .imageSlider {
-            padding: 5px;
-            height: 500px;
-            background-color: rgb(35, 187, 14);
+            // padding: 5px;
+            height: 400px;
+            // background-color: rgb(35, 187, 14);
             display: flex;
             justify-content: center;
             // align-items: center;
+            border: 1px solid rgb(238, 238, 238);
 
             .slider {
-                background-color: rgb(14, 158, 177);
+                // background-color: rgb(14, 158, 177);
                 width: 110px;
+
             }
 
             .productImage {
-                background-color: rgb(76, 22, 163);
-                width: 500px;
+
+                // background-color: rgb(76, 22, 163);
+                // width: 400px;
+                border-left: 1px solid rgb(238, 238, 238);
+
+                img {
+                    width: 400px;
+                    height: 400px;
+                    object-fit: contain;
+                }
             }
         }
 
         .productAction {
-            height: 100px;
-            background-color: rgb(207, 228, 22);
+
+            // background-color: rgb(207, 228, 22);
+            width: 400px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+
+            button {
+                padding: 1rem 2rem;
+                // background-color: rgb(0, 89, 255);
+                min-width: 180px;
+                min-height: 50px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 600;
+                text-transform: uppercase;
+                color: #fff;
+                border: none;
+                border-radius: 2px;
+
+                &:hover {
+                    box-shadow: 0 0 6px 3px rgb(204, 204, 204);
+                }
+            }
+
+            .cart {
+                background-color: rgb(240, 140, 9);
+
+            }
+
+            .buy {
+                background-color: rgb(0, 89, 255);
+
+            }
         }
     }
 
     .productDetails {
         width: 60%;
-        background-color: rgb(235, 50, 219);
+        margin-left: 10px;
+        // background-color: rgb(235, 50, 219);
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px 20px;
+
+        .name {
+            font-size: 22px;
+            font-weight: 500;
+            // margin: 5px 0;
+
+        }
+
+        .rating {
+            font-size: 14px;
+            color: rgb(136, 136, 136);
+            font-weight: 500;
+        }
+
+        .special {
+            font-size: 14px;
+            color: rgb(12, 148, 0);
+            font-weight: 500;
+        }
+
+        .priceDetails {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .price {
+                font-size: 28px;
+                font-weight: 600;
+
+            }
+
+            .mrp {
+                font-size: 16px;
+                text-decoration: line-through;
+                color: rgb(136, 136, 136);
+                font-weight: 500;
+            }
+
+            .discount {
+                font-size: 16px;
+                font-weight: 500;
+                color: rgb(12, 148, 0);
+            }
+        }
+
+        .offers {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .specifications {
+            border: 1px solid rgb(238, 238, 238);
+
+            .specifications_header {
+                border-bottom: 1px solid rgb(238, 238, 238);
+                height: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                // background-color: rgb(216, 12, 12);
+                font-size: 24px;
+                font-weight: 600;
+                padding-left: 20px;
+            }
+
+            .specifications_details {
+
+                // border-bottom: 1px solid rgb(238, 238, 238);
+                .general {
+                    height: 400px;
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    padding-top: 20px;
+                    color: rgba(0, 0, 0, 0.849);
+                    font-size: 18px;
+                    font-weight: 500;
+                    padding-left: 20px;
+
+                }
+            }
+        }
+
     }
+
+
 }
