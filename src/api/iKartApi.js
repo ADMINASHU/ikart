@@ -84,7 +84,7 @@ export const iKartApi = createApi({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: ["user","isLoggedIn"],
+      providesTags: ["user", "isLoggedIn"],
     }),
 
     // @public
@@ -214,7 +214,18 @@ export const iKartApi = createApi({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: ["cart", "logout", "signin"],
+      providesTags: ["cart", "signin"],
+    }),
+
+    // @private
+    // get total Cart count
+    getTotalCartCount: builder.query({
+      query: () => ({
+        url: "user/cart/getTotalCartCount",
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["cart", "signin"],
     }),
 
     // @private
@@ -225,7 +236,7 @@ export const iKartApi = createApi({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: ["cart", "logout", "signin"],
+      providesTags: ["cart", "signin"],
     }),
 
     // @private
@@ -274,4 +285,5 @@ export const {
   useAddCartItemMutation,
   useRemoveCartItemMutation,
   useGetCartItemCountQuery,
+  useGetTotalCartCountQuery,
 } = iKartApi;

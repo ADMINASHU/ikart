@@ -1,78 +1,223 @@
 .cartPage {
     display: flex;
     flex-direction: row;
-    margin-top: 60px;
+    margin-left: 10%;
+    margin-right: 10%;
+    // padding-top: 80px;
+    // background-color: red;
 
     .cartItemBlock {
-        background-color: rgb(231, 231, 71);
         width: 100%;
-        border-radius: 10px;
-        padding: 5px;
 
+        .address {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 20px;
+            font-size: 14px;
+            height: 60px;
+            background-color: rgb(248, 248, 248);
+            box-shadow: 0px 0px 2px 2px rgb(206, 206, 206);
+            border-radius: 2px;
+            margin-bottom: 20px;
+        }
         .itemsList {
-            background-color: rgb(169, 169, 255);
+            // background-color: rgb(169, 169, 255);
+            background-color: rgb(248, 248, 248);
+            box-shadow: 0px 0px 2px 2px rgb(206, 206, 206);
+            border-radius: 2px;
+
 
             .CartItem {
-                background-color: #fff;
-                border: 1px solid;
+                // background-color: rgb(190, 29, 29);
+                border-bottom: 1px solid rgb(197, 197, 197);
                 padding: 5px;
-                margin: 5px;
+                margin: 5px 0px;
                 display: flex;
 
                 .itemView {
-                    background-color: rgb(142, 216, 173);
+                    // background-color: rgb(142, 216, 173);
 
                     .itemImage {
-                        width: 160px;
-                        height: 160px;
+                        padding: 5px;
+                        width: 130px;
+                        height: 130px;
+                        object-fit: contain;
+                        background-color: transparent;
                     }
 
                     .itemCount {
-                        height: 40px;
-                        background-color: rgb(212, 80, 162);
+                        height: 30px;
+                        // background-color: rgb(212, 80, 162);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 5px;
+
+                        .count {
+                            width: 40px;
+                            height: 28px;
+                            border: 1px solid rgb(201, 201, 201);
+                            text-align: center;
+                            font-size: 16px;
+                            font-weight: 500;
+                            background-color: transparent;
+                            border: none;
+
+                            &::-webkit-outer-spin-button,
+                            &::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
+
+
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+
+                        button {
+                            width: 28px;
+                            height: 28px;
+                            border: 1px solid rgb(201, 201, 201);
+                            border-radius: 50%;
+                            font-size: 20px;
+                            cursor: pointer;
+                        }
                     }
                 }
 
                 .detailsView {
                     width: 100%;
-                    background-color: rgb(110, 112, 214);
-                    padding: 10px 10px 0px 10px;
+                    // background-color: rgb(110, 112, 214);
+                    padding: 10px 10px 0px 20px;
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
 
+                    .itemDetails {
+                        .itemName {
+                            a {
+                                text-decoration: none;
+                                font-size: 20px;
+                                font-weight: 500;
+                                color: rgba(0, 0, 0, 0.918);
+
+                                &:hover {
+                                    color: rgb(0, 23, 66);
+                                }
+
+                            }
+
+                        }
+
+                        .color {
+                            font-size: 14px;
+                            color: rgb(136, 136, 136);
+                            font-weight: 500;
+                        }
+
+                        .seller {
+                            font-size: 14px;
+                            color: rgb(136, 136, 136);
+                            font-weight: 500;
+                            margin-top: 5px;
+                        }
+
+                        .priceDetails {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            margin-top: 12px;
+
+                            .price {
+                                font-size: 18px;
+                                font-weight: 500;
+
+                            }
+
+                            .mrp {
+                                font-size: 14px;
+                                text-decoration: line-through;
+                                color: rgb(136, 136, 136);
+                                font-weight: 500;
+                            }
+
+                            .discount {
+                                font-size: 14px;
+                                font-weight: 500;
+                                color: rgb(12, 148, 0);
+                            }
+                        }
+                    }
+
                     .itemAction {
-                        height: 40px;
-                        background-color: rgb(212, 80, 162);
+                        height: 30px;
+                        // background-color: rgb(212, 80, 162);
+                        display: flex;
+                        align-items: center;
+
+                        button {
+                            padding: 10px 10px 10px 0px;
+                            border: none;
+                            background-color: transparent;
+                            font-weight: 600;
+                            cursor: pointer;
+                            color: rgba(0, 0, 0, 0.918);
+
+                            &:hover {
+                                color: rgb(243, 72, 4);
+                            }
+                        }
                     }
                 }
             }
         }
 
         .placeOrder {
-            background-color: rgb(214, 173, 173);
-            color: yellow;
+            background-color: rgb(248, 248, 248);
+            box-shadow: 0px -5px 5px 0px rgb(196, 196, 196);
             position: sticky;
-            bottom: 35px;
-            height: 40px;
+            bottom: 0px;
+            height: 60px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            button {
+                margin-right: 20px;
+                // padding: 10px;
+                min-width: 180px;
+                min-height: 40px;
+                text-transform: uppercase;
+                font-weight: 600;
+                border: none;
+                border-radius: 2px;
+                background-color: rgb(243, 72, 4);
+                color: rgb(255, 255, 255);
+                cursor: pointer;
+            }
         }
     }
 
     .priceDetailsBlock {
-        margin-left: 10px;
-        
-        width: 40%;
+        margin-left: 20px;
+        // box-shadow: 0px 0px 2px 2px rgb(206, 206, 206);
+        border-radius: 2px;
+        width: 50%;
         // background-color: rgb(165, 233, 165);
-        position: sticky;
-        top: 100px;
-       
-        .priceDetails{
-            background-color: rgb(233, 204, 165);
+        // position: sticky;
+        // top: 60px;
+
+        .priceDetails {
+            background-color: rgb(248, 248, 248);
+            box-shadow: 0px 0px 2px 2px rgb(206, 206, 206);
+            border-radius: 2px;
             position: sticky;
-            top: 40px;
+            top: 60px;
             height: 400px;
-            border-radius: 10px;
-            padding: 5px;
+            // border-radius: 10px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;

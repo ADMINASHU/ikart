@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,9 +5,15 @@ import ProductForm from "./ProductForm";
 import UpdateProductForm from "./UpdateProductForm";
 import SellerProductCard from "./SellerProductCard";
 import { useGetSellerProductQuery } from "../../api/iKartApi";
+import Loading from "../Loading";
 
 const SellerProductView = () => {
-  const { data: sellerProducts } = useGetSellerProductQuery(undefined, { refetchOnMountOrArgChange: true });
+  const {
+    isLoading,
+    isError,
+    error,
+    data: sellerProducts,
+  } = useGetSellerProductQuery(undefined, { refetchOnMountOrArgChange: true });
   const [formView, setFormView] = useState(false);
   const [productId, setProductId] = useState("");
   const [updateFormView, setUpdateFormView] = useState(false);
@@ -36,7 +41,11 @@ const SellerProductView = () => {
           <FontAwesomeIcon icon={faAdd} size="10x" />
         </div>
       </div>
-      {sellerProducts?.length ? (
+      {isLoading ? (
+        <Loading />
+      ) : isError ? (
+        <>`Oh no, there was an error ${error}`</>
+      ) : sellerProducts?.length ? (
         sellerProducts
           ?.map((product, index) => {
             return (

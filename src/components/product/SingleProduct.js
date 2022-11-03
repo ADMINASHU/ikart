@@ -5,29 +5,45 @@ import { faBolt, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   useAddCartItemMutation,
+  useGetAuthQuery,
   useGetCartItemCountQuery,
   useGetSingleProductQuery,
 } from "../../api/iKartApi";
 import "./singleProduct.scss";
+import Loading from "../Loading";
 const SingleProduct = () => {
   const { id } = useParams();
+  const { data: auth } = useGetAuthQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   const {
     isLoading,
     isError,
     error,
     data: product,
-  } = useGetSingleProductQuery({ id });
+  } = useGetSingleProductQuery(
+    { id },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const [addCartItem] = useAddCartItemMutation();
-  const { data: itemCount } = useGetCartItemCountQuery({ id });
+  const { data: itemCount } = useGetCartItemCountQuery(
+    { id },
+    {
+      refetchOnMountOrArgChange: true,
+      skip: !auth,
+    }
+  );
 
   return (
     <div className="cards">
       {isLoading ? (
-        <>Loading...</>
+        <Loading />
       ) : isError ? (
         <>`Oh no, there was an error ${error}`</>
       ) : (
-        <div className="singleProductPage">
+        <div className="singleProductPage page">
           <div className="productImageSlider">
             <div className="imageSlider">
               <div className="slider"></div>

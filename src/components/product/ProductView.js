@@ -1,4 +1,5 @@
 import { useGetAllProductsQuery } from "../../api/iKartApi";
+import Loading from "../Loading";
 import ProductCard from "./ProductCard";
 
 const ProductView = () => {
@@ -7,12 +8,12 @@ const ProductView = () => {
     isError,
     error,
     data: products,
-  } = useGetAllProductsQuery(undefined, { refetchOnMountOrArgChange: true });
+  } = useGetAllProductsQuery();
 
   return (
     <div className="cards">
       {isLoading ? (
-        <>Loading...</>
+        <Loading/>
       ) : isError ? (
         <>`Oh no, there was an error ${error}`</>
       ) : products?.length ? (

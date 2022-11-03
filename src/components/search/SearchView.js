@@ -1,6 +1,9 @@
 import ProductCard from "../product/ProductCard";
 import { useSelector } from "react-redux";
 import { useGetSearchProductsQuery } from "../../api/iKartApi";
+import Loading from "../Loading"
+
+
 
 
 const SearchView = () => {
@@ -15,7 +18,7 @@ const SearchView = () => {
   return (
     <div className="cards">
       {isLoading ? (
-        <h2>Loading...</h2>
+        <Loading/>
       ) : isError ? (
         <h2>`Oh no, there was an error ${error}`</h2>
       ) : products?.length ? (
@@ -34,6 +37,7 @@ const SearchView = () => {
       ) : (
         <h2>No Product matched</h2>
       )}
+    
     </div>
   );
 };

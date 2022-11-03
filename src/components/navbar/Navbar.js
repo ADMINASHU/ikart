@@ -13,24 +13,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { setSearch } from "../../features/searchSlice";
 import { useDispatch } from "react-redux";
 import {
+  useGetAuthQuery,
   useGetAuthUserQuery,
-  useGetCartItemsQuery,
   useGetLogOutMutation,
+  useGetTotalCartCountQuery,
 } from "../../api/iKartApi";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  // get user info
-  const { data: user } = useGetAuthUserQuery(undefined, {
+
+  const { data: auth } = useGetAuthQuery(undefined, {
     refetchOnMountOrArgChange: true,
+  });
+
+  // get user info
+  const { isLoading, data: user } = useGetAuthUserQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    skip: !auth,
   });
 
   const [getLogOut] = useGetLogOutMutation(undefined, {
     refetchOnMountOrArgChange: true,
   });
 
-  const { data: cart } = useGetCartItemsQuery(undefined, {
+  const { data: cartCount } = useGetTotalCartCountQuery(undefined, {
     refetchOnMountOrArgChange: true,
+    skip: !auth,
   });
 
   const [navView, setNavView] = useState(false);
@@ -42,13 +50,6 @@ const Navbar = () => {
     setNavView(false);
   }, []);
 
-  const logOut = () => {
-    setNavView(false);
-    dispatch(setSearch(""));
-    getLogOut();
-    // navigate("/signin");
-  };
-
   return (
     <div className="navbar">
       <NavLink className="logo" to={"/"}>
@@ -56,6 +57,7 @@ const Navbar = () => {
         <span className="i">i</span>
         <span className="kart">Kart</span>
       </NavLink>
+      {/* // nav Search ####################################### */}
       <div className="search">
         <input
           type="text"
@@ -72,45 +74,35 @@ const Navbar = () => {
 
         {value.trim() ? (
           <NavLink to={"/search"}>
-            {/* <button onClick={() => dispatch(setSearch(value.trim()))}> */}
             <FontAwesomeIcon
               className="button"
               onClick={() => dispatch(setSearch(value.trim()))}
               icon={faSearch}
               size="sm"
             />
-            {/* </button> */}
           </NavLink>
         ) : (
-          // <button onClick={() => dispatch(setSearch(""))}>
           <FontAwesomeIcon
             className="button"
             onClick={() => dispatch(setSearch(""))}
             icon={faSearch}
             size="sm"
           />
-          // </button>
         )}
       </div>
+      {/* // nav links ####################################### */}
       <ul className="links">
         <Authorized>
-          {user?.uname && (
-            <li className="link">
-              <NavLink
-                // onMouseOver={() => setNavView(true)}
-                onClick={() => {
-                  setNavView((navView) => !navView);
-                }}
-              >
-                {user?.uname}
-              </NavLink>
-            </li>
-          )}
+          <li className="link">
+            <span onClick={() => setNavView((navView) => !navView)}>
+              {isLoading ? null : <span>{user?.uname}</span>}
+            </span>
+          </li>
         </Authorized>
         <UnAuthorized>
           <li className="link signin">
             <NavLink to={"/signin"}>
-              <span>SignIn</span>{" "}
+              <span>SignIn</span>
             </NavLink>
           </li>
         </UnAuthorized>
@@ -118,16 +110,16 @@ const Navbar = () => {
           <NavLink to={"/about"}>About</NavLink>
         </li>
         <Authorized>
-          {(user?.role === "Seller" && (
+          {user?.role === "Seller" && (
             <li className="link">
               <NavLink to={"/product"}>Product</NavLink>
             </li>
-          )) ||
-            (user?.role === "User" && (
-              <li className="link">
-                <NavLink to={"/seller"}>Become a seller</NavLink>
-              </li>
-            ))}
+          )}
+          {user?.role === "User" && (
+            <li className="link">
+              <NavLink to={"/seller"}>Become a seller</NavLink>
+            </li>
+          )}
         </Authorized>
         <UnAuthorized>
           <li className="link">
@@ -137,11 +129,11 @@ const Navbar = () => {
 
         <li className="link">
           <NavLink to={"/cart"}>
-            <FontAwesomeIcon icon={faCartShopping} size="sm" />
+          Cart&nbsp; 
+            <FontAwesomeIcon className="cart_icon" icon={faCartShopping} size="sm" />
+            
             <Authorized>
-              {cart?.cartCount > 0 && (
-                <span className="cartCount">{cart?.cartCount}</span>
-              )}
+              {cartCount > 0 && <span className="cartCount">{cartCount}</span>}
             </Authorized>
           </NavLink>
         </li>
@@ -178,13 +170,21 @@ const Navbar = () => {
                   </div>
                 </NavLink>
               </li>
-              <li className="profileLink" onClick={logOut}>
-                <NavLink>
+              <li
+                className="profileLink"
+                onClick={() => {
+                  setNavView(false);
+                  dispatch(setSearch(""));
+                  getLogOut();
+                  navigate("/");
+                }}
+              >
+                <span>
                   <div>
                     <FontAwesomeIcon icon={faPowerOff} size="sm" />
                     &nbsp; Log Out
                   </div>
-                </NavLink>
+                </span>
               </li>
             </ul>
           </div>

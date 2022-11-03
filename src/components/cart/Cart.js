@@ -3,19 +3,23 @@ import CartItemCard from "./CartItemCard";
 import "./Cart.scss";
 import PriceBlock from "./PriceBlock";
 import { useGetCartItemsQuery } from "../../api/iKartApi";
-
-
+import Loading from "../Loading";
 
 const Cart = () => {
-  const { isLoading, isError, error, data: cart } = useGetCartItemsQuery(undefined, { refetchOnMountOrArgChange: true });
+  const {
+    isLoading,
+    isError,
+    error,
+    data: cart,
+  } = useGetCartItemsQuery(undefined, { refetchOnMountOrArgChange: true });
 
   return (
     <div className="cartPage page">
       <div className="cartItemBlock">
-        <div>Cart Item</div>
+        <div className="address">Deliver to: </div>
         <div className="itemsList">
           {isLoading ? (
-            <>Loading...</>
+            <Loading />
           ) : isError ? (
             <>`Oh no, there was an error ${error}`</>
           ) : cart?.itemCount ? (
@@ -26,6 +30,7 @@ const Cart = () => {
                   id={item._id}
                   name={item.productName}
                   price={item.productPrice}
+                  discount={item.productDiscount}
                   color={item.productColor}
                   image={item.productImage}
                   seller={item.productSellers}
