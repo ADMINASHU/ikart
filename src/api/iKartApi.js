@@ -135,6 +135,17 @@ export const iKartApi = createApi({
       providesTags: ["product"],
     }),
 
+  
+    //@public
+    // get All filtered Products
+    getCatProduct: builder.query({
+      query: () => ({
+        url: "product/getCatProduct",
+        method: "GET",
+      }),
+      providesTags: ["product"],
+    }),
+
     //@public
     // search product by key value
     getSearchProducts: builder.query({
@@ -286,4 +297,5 @@ export const {
   useRemoveCartItemMutation,
   useGetCartItemCountQuery,
   useGetTotalCartCountQuery,
+  useGetCatProductQuery,
 } = iKartApi;

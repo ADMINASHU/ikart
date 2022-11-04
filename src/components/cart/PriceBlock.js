@@ -1,24 +1,41 @@
 import React from "react";
 
-
-const PriceBlock = ({ itemCount,cartPrice,cartDiscount, CartAmount }) => {
+const PriceBlock = ({ itemCount, cartPrice, cartDiscount, CartAmount }) => {
   return (
-    <div>
-      <div>
+    <div className="price_block">
+      <div className="price block">
         <span>{`Price ( ${itemCount} items )`}</span>
-        <span>{` ₹${cartPrice}`}</span>
+        <span>
+          {cartPrice.toLocaleString("us-US", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0,
+          })}
+        </span>
       </div>
-      <div>
+      <div className="block">
         <span>Discount</span>
-        <span>{` -₹${cartDiscount}`}</span>
+        <span>
+          {cartDiscount.toLocaleString("us-US", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0,
+          })}
+        </span>
       </div>
-      <div>
+      <div className="block">
         <span>Delivery Charges</span>
         <span>{` ₹${0}`}</span>
       </div>
-      <div>
+      <div className="block total">
         <span>Total Amount</span>
-        <span>{` ₹${CartAmount}`}</span>
+        <span>
+          {CartAmount.toLocaleString("us-US", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0,
+          })}
+        </span>
       </div>
     </div>
   );

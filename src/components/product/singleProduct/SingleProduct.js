@@ -8,9 +8,9 @@ import {
   useGetAuthQuery,
   useGetCartItemCountQuery,
   useGetSingleProductQuery,
-} from "../../api/iKartApi";
+} from "../../../api/iKartApi";
 import "./singleProduct.scss";
-import Loading from "../Loading";
+import Loading from "../../Loading";
 const SingleProduct = () => {
   const { id } = useParams();
   const { data: auth } = useGetAuthQuery(undefined, {

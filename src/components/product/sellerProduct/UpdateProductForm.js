@@ -3,11 +3,21 @@ import React, { useEffect, useState } from "react";
 // toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAddSellerProductMutation } from "../../api/iKartApi";
+import {
+  useGetSingleProductQuery,
+  useUpdateSellerProductMutation,
+} from "../../../api/iKartApi";
 // toast
 
-const ProductForm = ({ setFormView }) => {
-  const [addSellerProduct] = useAddSellerProductMutation();
+const UpdateProductForm = ({ setUpdateFormView, id }) => {
+  const [updateSellerProduct] = useUpdateSellerProductMutation();
+
+  const {
+    isLoading,
+    isSuccess,
+    data: sellerProducts,
+  } = useGetSingleProductQuery({ id }, { refetchOnMountOrArgChange: true });
+  // console.log("from update product form> Product:", sellerProducts);
 
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
@@ -30,9 +40,24 @@ const ProductForm = ({ setFormView }) => {
     productColor,
     productCode,
     discount,
-  ]); // useEffect for set Error
+  ]);
 
-  // functions define ...................................................
+  // useEffect for set Error
+  useEffect(
+    (isSuccess) => {
+      if (isSuccess) {
+        setProductName(sellerProducts?.productName);
+        setProductPrice(sellerProducts?.productPrice);
+        setProductQuantity(sellerProducts?.productQuantity);
+        setProductCategory(sellerProducts?.productCategory);
+        setProductImage(sellerProducts?.productImage);
+        setProductColor(sellerProducts?.productColor);
+        setProductCode(sellerProducts?.productCode);
+        setDiscount(sellerProducts?.productDiscount);
+      }
+    },
+    [isSuccess]
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,15 +70,12 @@ const ProductForm = ({ setFormView }) => {
     formData.append("productColor", productColor);
     formData.append("productDiscount", discount);
     formData.append("productCode", productCode);
-    // console.log("formData", formData);
-    // console.log("productImage", productImage);
 
     try {
-      const response = addSellerProduct({
+      const response = await updateSellerProduct({
+        id: id,
         body: formData,
       });
-
-      // console.log(response?.data);
 
       setProductName("");
       setProductPrice("");
@@ -63,7 +85,7 @@ const ProductForm = ({ setFormView }) => {
       setProductColor("");
       setProductCode("");
       setDiscount("");
-      setFormView(false);
+      setUpdateFormView(false);
       toast(response.message);
     } catch (error) {
       setErrMsg("Adding Product failed");
@@ -72,7 +94,7 @@ const ProductForm = ({ setFormView }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form onSubmit={handleSubmit}>
         <label>product Name: </label>
         <div className="inputBox">
           <input
@@ -180,7 +202,7 @@ const ProductForm = ({ setFormView }) => {
         </div>
         <br />
         <button className="btn btn-seller" type="submit">
-          Add Product
+          Update Product
         </button>
         <br />
         <span className="invalidError">{errMsg}</span>
@@ -202,4 +224,4 @@ const ProductForm = ({ setFormView }) => {
   );
 };
 
-export default ProductForm;
+export default UpdateProductForm;

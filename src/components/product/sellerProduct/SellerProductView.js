@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductForm from "./ProductForm";
 import UpdateProductForm from "./UpdateProductForm";
 import SellerProductCard from "./SellerProductCard";
-import { useGetSellerProductQuery } from "../../api/iKartApi";
-import Loading from "../Loading";
+import { useGetSellerProductQuery } from "../../../api/iKartApi";
+import Loading from "../../Loading";
 
 const SellerProductView = () => {
   const {

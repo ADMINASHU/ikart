@@ -23,7 +23,7 @@ import Seller from "./components/seller/Seller";
 import Orders from "./components/Orders";
 import Wishlist from "./components/Wishlist";
 import Search from "./components/search/Search";
-import SingleProduct from "./components/product/SingleProduct";
+import SingleProduct from "./components/product/singleProduct/SingleProduct";
 
 const App = () => {
   return (

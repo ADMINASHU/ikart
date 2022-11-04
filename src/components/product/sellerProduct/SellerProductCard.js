@@ -1,5 +1,5 @@
 import React from "react";
-import { useDeleteSellerProductMutation } from "../../api/iKartApi";
+import { useDeleteSellerProductMutation } from "../../../api/iKartApi";
 
 
 const SellerProductCard = (prop) => {

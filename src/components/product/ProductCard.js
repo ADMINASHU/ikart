@@ -1,6 +1,6 @@
 import React from "react";
-
 import { NavLink } from "react-router-dom";
+import "./productCard.scss"
 
 const ProductCard = (prop) => {
   return (

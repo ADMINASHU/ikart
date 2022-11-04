@@ -1,7 +1,8 @@
 import React from "react";
 import "./Product.scss";
-import SellerProductView from "./SellerProductView";
-import SellerProductFilter from "./SellerProductFilter";
+import SellerProductFilter from "./sellerProduct/SellerProductFilter";
+import SellerProductView from "./sellerProduct/SellerProductView";
+
 
 const Product = () => {
   return (

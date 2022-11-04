@@ -48,14 +48,24 @@ const Cart = () => {
       </div>
       <div className="priceDetailsBlock">
         <div className="priceDetails">
-          <div>PRICE DETAILS</div>
-          <PriceBlock
-            itemCount={cart?.itemCount}
-            cartPrice={cart?.cartPrice}
-            cartDiscount={cart?.cartDiscount}
-            CartAmount={cart?.CartAmount}
-          />
-          <div>{`You will save ₹${cart?.cartDiscount} on this order`}</div>
+          <div className="price_heading">PRICE DETAILS</div>
+          {isLoading ? (
+            <Loading />
+          ) : isError ? (
+            <>`Oh no, there was an error ${error}`</>
+          ) : (
+            <PriceBlock
+              itemCount={cart?.itemCount}
+              cartPrice={cart?.cartPrice}
+              cartDiscount={cart?.cartDiscount}
+              CartAmount={cart?.CartAmount}
+            />
+          )}
+          <div className="save" >{`You will save ${cart?.cartDiscount.toLocaleString("us-US", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0,
+          })} on this order`}</div>
         </div>
       </div>
     </div>
