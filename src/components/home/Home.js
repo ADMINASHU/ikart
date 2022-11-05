@@ -6,12 +6,9 @@ import HomeView from "./HomeView";
 const Home = () => {
   return (
     <div className="home page">
+      <div className="homeSlider"></div>
       <div className="home_product">
         <HomeView />
-        {/* <div>
-
-        <ProductView />
-        </div> */}
       </div>
     </div>
   );

@@ -1,12 +1,15 @@
+.homeSlider{
+    height: 300px;
+    background-color: rgb(62, 192, 23);
+}
+
+
+
 .home_product {
     margin-top: 60px;
     display: flex;
     justify-content: center;
 
-    // .filter {
-    //     background-color: yellow;
-    //     width: 250px;
-    // }
 
     .cards {
 
@@ -17,16 +20,6 @@
 
     }
 
-    
-}
-.prodCatView {
-    .prodCat {
-        display: flex;
-        .cat{
 
-        }
-        .prod{
-            
-        }
-    }
 }
+
