@@ -1,0 +1,172 @@
+.profilePage {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    // padding: 10px 12%;
+
+
+    .proNav {
+        min-width: 250px;
+        // max-width: 300px;
+        // width: 35%;
+        // background-color: red;
+        // height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+
+        .proHeader {
+            height: 60px;
+            background-color: rgb(248, 248, 248);
+            border-radius: 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            box-shadow: 0 0 9px 3px rgb(180, 180, 180);
+
+
+            .proImg {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                // background-color: rgb(22, 0, 75);
+                margin-left: 10px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    // height: 240px;
+                    object-fit: cover;
+                    overflow: hidden;
+                    border-radius: 50%;
+                }
+            }
+
+            .proName {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+
+                .hello {
+                    font-size: 14px;
+                    color: rgb(129, 129, 129);
+                }
+
+                width: 70%;
+                height: 60px;
+
+                // background-color: rgb(255, 11, 223);
+            }
+        }
+
+        .account {
+            // height: 320px;
+            border-radius: 2px;
+            background-color: rgb(248, 248, 248);
+            box-shadow: 0 0 9px 3px rgb(180, 180, 180);
+
+            a {
+                text-decoration: none;
+            }
+
+            .left {
+                font-size: 16px;
+                color: rgb(129, 129, 129);
+                text-transform: uppercase;
+                font-weight: 600;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+
+
+                span {
+                    .icon {
+                        padding-right: 20px;
+                        color: rgb(0, 23, 66);
+                    }
+                }
+
+            }
+
+            .wish {
+                border-bottom: 1px solid rgb(196, 196, 196);
+
+            }
+
+            .links {
+
+                padding: 10px 0px 10px 55px;
+                cursor: pointer;
+
+                a {
+                    font-size: 14px;
+                    color: rgb(0, 0, 0);
+                    text-transform: capitalize;
+                    font-weight: 600;
+                    text-decoration: none;
+
+                }
+
+                &:hover {
+                    a {
+
+                        color: rgb(243, 72, 4);
+                    }
+                }
+                .active{
+                    color: rgb(243, 72, 4);
+                }
+
+            }
+
+            .active {
+                color: rgb(0, 23, 66);
+            }
+
+
+            .order {
+                height: 60px;
+                // background-color: rgb(0, 255, 0);
+                border-bottom: 1px solid rgb(196, 196, 196);
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+
+                .order_under {
+                    span {
+                        margin-left: 20px;
+                    }
+
+                    .icon {
+                        color: rgb(0, 0, 0);
+                    }
+                }
+
+            }
+
+            .profile {
+                height: 60px;
+
+            }
+
+        }
+    }
+
+    .proDetails {
+        min-width: 500px;
+        max-width: 750px;
+        width: 100%;
+        background-color: rgb(248, 248, 248);
+        height:fit-content;
+        border-radius: 2px;
+        box-shadow: 0 0 9px 3px rgb(180, 180, 180);
+
+
+
+    }
+}

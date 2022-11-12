@@ -90,10 +90,10 @@ export const iKartApi = createApi({
     // @public
     // update User
     updateUser: builder.mutation({
-      query: (body) => ({
+      query: (props) => ({
         url: "user/updateUser",
         method: "PATCH",
-        body: body,
+        body: props.body,
         credentials: "include",
       }),
       invalidatesTags: ["user"],
