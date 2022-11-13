@@ -34,11 +34,22 @@
                 // background-color: rgb(76, 22, 163);
                 // width: 400px;
                 border-left: 1px solid rgb(238, 238, 238);
-
+                position: relative;
                 img {
                     width: 400px;
                     height: 400px;
                     object-fit: contain;
+                }
+                .wish{
+                    position: absolute;
+                    right: 10px;
+                    top:10px;
+                    font-size: 20px;
+                    color:rgb(173, 173, 173);
+                    cursor: pointer;
+                }
+                .red{
+                    color:rgb(226, 9, 9);
                 }
             }
         }

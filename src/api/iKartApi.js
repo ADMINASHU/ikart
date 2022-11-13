@@ -6,6 +6,7 @@ export const iKartApi = createApi({
     baseUrl: "http://localhost:4000/",
   }),
   tagTypes: [
+    "wish",
     "auth",
     "user",
     "cart",
@@ -215,6 +216,53 @@ export const iKartApi = createApi({
       invalidatesTags: ["product"],
     }),
 
+    
+    // ############################################################
+       // @private
+    // get wishlist Items
+    getWishlistItems: builder.query({
+      query: () => ({
+        url: "user/wishlist/getItems",
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["wish", "signin"],
+    }),
+
+     // @private
+    // update wishlist Item
+    updateWishlist: builder.mutation({
+      query: (props) => ({
+        url: "user/wishlist/updateItem",
+        method: "PUT",
+        body: props.body,
+        credentials: "include",
+      }),
+      invalidatesTags: ["wish"],
+    }),
+
+      // @private
+    // remove Wishlist Item
+    removeWishlistItem: builder.mutation({
+      query: (props) => ({
+        url: `user/wishlist/removeItem/${props.id}`,
+        method: "PUT",
+        credentials: "include",
+      }),
+      invalidatesTags: ["wish"],
+    }),
+
+      // @private
+    // get Cart Count
+    isItemInWishlist: builder.query({
+      query: (prop) => ({
+        url: `user/wishlist/isItemInWishlist/${prop.id}`,
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["wish", "signin"],
+    }),
+    
     // ############################################################
 
     // @private
@@ -298,4 +346,8 @@ export const {
   useGetCartItemCountQuery,
   useGetTotalCartCountQuery,
   useGetCatProductQuery,
+  useGetWishlistItemsQuery,
+  useUpdateWishlistMutation,
+  useRemoveWishlistItemMutation,
+  useIsItemInWishlistQuery,
 } = iKartApi;

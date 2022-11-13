@@ -1,13 +1,19 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { faBolt, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBolt,
+  faCartShopping,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   useAddCartItemMutation,
   useGetAuthQuery,
   useGetCartItemCountQuery,
   useGetSingleProductQuery,
+  useIsItemInWishlistQuery,
+  useUpdateWishlistMutation,
 } from "../../../api/iKartApi";
 import "./singleProduct.scss";
 import Loading from "../../Loading";
@@ -28,7 +34,15 @@ const SingleProduct = () => {
     }
   );
   const [addCartItem] = useAddCartItemMutation();
+  const [updateWishlist] = useUpdateWishlistMutation();
   const { data: itemCount } = useGetCartItemCountQuery(
+    { id },
+    {
+      refetchOnMountOrArgChange: true,
+      skip: !auth,
+    }
+  );
+  const { data: isItemInWishlist } = useIsItemInWishlistQuery(
     { id },
     {
       refetchOnMountOrArgChange: true,
@@ -49,6 +63,20 @@ const SingleProduct = () => {
               <div className="slider"></div>
               <div className="productImage">
                 <img src={product?.productImage} alt="product" />
+                {isLoading ? null : auth ? (
+                  <FontAwesomeIcon
+                    className={isItemInWishlist ? "wish red" : "wish"}
+                    onClick={() =>
+                      updateWishlist({
+                        body: { id },
+                      })
+                    }
+                    icon={faHeart}
+                    size="sm"
+                  />
+                ) : (
+                  <FontAwesomeIcon className="wish" icon={faHeart} size="sm" />
+                )}
               </div>
             </div>
             <div className="productAction">

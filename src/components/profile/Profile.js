@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetAuthQuery, useGetAuthUserQuery } from "../../api/iKartApi";
 import { NavLink, Route, Routes} from "react-router-dom";
-import Wishlist from "../Wishlist";
+import Wishlist from "./wishlist/Wishlist";
 import ProfileInfo from "./ProfileInfo";
 
 const Profile = () => {
@@ -52,7 +52,7 @@ const Profile = () => {
             </span>
           </div>
           <div className="links">
-            <NavLink to={"/profile/"}>
+            <NavLink to={"/profile/info"}>
               Profile Information
             </NavLink>
           </div>

@@ -50,10 +50,6 @@ const ProfileInfo = () => {
         body: formData,
       });
       if (response) {
-        // setUname("");
-        // setEmail("");
-        // setUserImage("");
-        // setGender("");
         setDisable((pre) => !pre);
         setAction(disable ? "Cancel" : "Edit");
         toast(response?.data?.message);
@@ -84,6 +80,9 @@ const ProfileInfo = () => {
           onClick={() => {
             setDisable((pre) => !pre);
             setAction(disable ? "Cancel" : "Edit");
+            setUname("");
+            setEmail("");
+            setUserImage("");
           }}
         >
           {action}
@@ -160,7 +159,7 @@ const ProfileInfo = () => {
       </div>
       <div className="instruction">
         <div className="FAQ">FAQs</div>
-        <div className="para">
+        <div className="para qus">
           What happens when I update my email address (or mobile number)?
         </div>
         <div className="para">
@@ -168,19 +167,24 @@ const ProfileInfo = () => {
           receive all your account related communication on your updated email
           address (or mobile number).
         </div>
-        <div className="para">
+        <div className="para qus">
           When will my ikart account be updated with the new email address (or
-          mobile number)? It happens as soon as you confirm the verification
-          code sent to your email (or mobile) and save the changes.
+          mobile number)?
         </div>
         <div className="para">
+          It happens as soon as you confirm the verification code sent to your
+          email (or mobile) and save the changes.
+        </div>
+        <div className="para qus">
           What happens to my existing ikart account when I update my email
-          address (or mobile number)? Updating your email address (or mobile
-          number) doesn't invalidate your account. Your account remains fully
-          functional. You'll continue seeing your Order history, saved
-          information and personal details.
+          address (or mobile number)?
         </div>
         <div className="para">
+          Updating your email address (or mobile number) doesn't invalidate your
+          account. Your account remains fully functional. You'll continue seeing
+          your Order history, saved information and personal details.
+        </div>
+        <div className="para qus">
           Does my Seller account get affected when I update my email address?
         </div>
         <div className="para">

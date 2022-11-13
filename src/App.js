@@ -21,9 +21,10 @@ import UserAuthRoute from "./components/routes/UserAuthRoute";
 import Cart from "./components/cart/Cart";
 import Seller from "./components/seller/Seller";
 import Orders from "./components/Orders";
-import Wishlist from "./components/Wishlist";
+import Wishlist from "./components/profile/wishlist/Wishlist";
 import Search from "./components/search/Search";
 import SingleProduct from "./components/product/singleProduct/SingleProduct";
+import Wish from "./components/profile/wishlist/Wish";
 
 const App = () => {
   return (
@@ -45,7 +46,7 @@ const App = () => {
             </Route>
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/orders" element={<Orders />} />
-            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/wishlist" element={<Wish />} />
           </Route>
 
           <Route element={<UnProtectedRoute />}>
