@@ -13,7 +13,9 @@ const Wishlist = () => {
 
   return (
     <div className="wishPage">
-      <span>My Wishlist</span>
+      <div className="wishHeader">
+        <span className="wishHead">My Wishlist</span>
+      </div>
       {isLoading ? (
         <Loading />
       ) : isError ? (
@@ -35,8 +37,7 @@ const Wishlist = () => {
           );
         })
       ) : (
-        
-        <h2 className="empty" >Wishlist is Empty</h2>
+        <h2 className="empty">Wishlist is Empty</h2>
       )}
     </div>
   );

@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  useGetAuthQuery,
-  useGetAuthUserQuery,
-  useUpdateUserMutation,
-} from "../../api/iKartApi";
+import { useGetAuthQuery, useGetAuthUserQuery, useUpdateUserMutation } from "../../../api/iKartApi";
 import "./profileInfo.scss";
 
 // toast
@@ -25,23 +21,28 @@ const ProfileInfo = () => {
   const [disable, setDisable] = useState(true);
   const [action, setAction] = useState("Edit");
   const [uname, setUname] = useState("");
+  const [lname, setLname] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [userImage, setUserImage] = useState("");
 
   useEffect(() => {
     if (!isLoading) {
       setUname(user?.uname);
-      setGender(user?.gender);
+      setLname(user?.lname || "");
+      setGender(user?.gender || "Male");
       setEmail(user?.email);
       setUserImage(user?.image);
+      setRole(user?.role);
     }
-  }, [isLoading]);
+  }, [user, disable, isLoading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("uname", uname);
+    formData.append("lname", lname);
     formData.append("gender", gender);
     formData.append("image", userImage);
 
@@ -64,14 +65,9 @@ const ProfileInfo = () => {
   return (
     <div className="profileInfo">
       <div className="infoHeader">
-        <div>
+        <div className="head-left">
           <span className="head">Profile Information</span>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="save"
-            hidden={disable}
-          >
+          <button type="submit" onClick={handleSubmit} className="save" hidden={disable}>
             SAVE
           </button>
         </div>
@@ -81,27 +77,43 @@ const ProfileInfo = () => {
             setDisable((pre) => !pre);
             setAction(disable ? "Cancel" : "Edit");
             setUname("");
+            setLname("");
             setEmail("");
             setUserImage("");
+            setGender("");
+            setRole("");
           }}
         >
           {action}
         </span>
       </div>
-      <div className="form">
+      <div className="pform">
         <form method="patch">
-          <div className="input">
-            <label>Your Name</label>
-            <input
-              type="text"
-              placeholder={user?.uname}
-              name="uname"
-              value={uname}
-              disabled={disable}
-              onChange={(e) => setUname(e.target.value)}
-            />
+          <div className="line">
+            <div className="pinput">
+              <label>First Name</label>
+              <input
+                type="text"
+                placeholder="First Name"
+                name="uname"
+                value={uname}
+                disabled={disable}
+                onChange={(e) => setUname(e.target.value)}
+              />
+            </div>
+            <div className="pinput">
+              <label>Last Name</label>
+              <input
+                type="text"
+                placeholder="Last Name"
+                name="lname"
+                value={lname}
+                disabled={disable}
+                onChange={(e) => setLname(e.target.value)}
+              />
+            </div>
           </div>
-          <div className="input">
+          <div className="pinput">
             <label>Your Gender</label>
             <div className="gender">
               <input
@@ -126,25 +138,26 @@ const ProfileInfo = () => {
               <label htmlFor="female">Female</label>
             </div>
           </div>
-          <div className="input">
+          <div className="pinput">
             <label htmlFor="">Email Address</label>
             <input
               type="email"
-              placeholder={user?.email}
+              placeholder="Email"
               name="email"
               value={email}
               disabled
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="input">
+          <div className="pinput">
             <label htmlFor="">Account Type</label>
-            <input type="text" placeholder={user?.role} name="type" disabled />
+            <input type="text" placeholder="Account Type" name="type" value={role} disabled />
           </div>
         </form>
         <div className="imageBox">
-          <img src={user?.image} alt="user image" />
+          <img src={user?.image} alt="user" />
           <input
+            className="imgButton"
             type="file"
             placeholder="userImage"
             filename="userImage"
@@ -163,33 +176,30 @@ const ProfileInfo = () => {
           What happens when I update my email address (or mobile number)?
         </div>
         <div className="para">
-          Your login email id (or mobile number) changes, likewise. You'll
-          receive all your account related communication on your updated email
-          address (or mobile number).
+          Your login email id (or mobile number) changes, likewise. You'll receive all your account
+          related communication on your updated email address (or mobile number).
         </div>
         <div className="para qus">
-          When will my ikart account be updated with the new email address (or
-          mobile number)?
+          When will my ikart account be updated with the new email address (or mobile number)?
         </div>
         <div className="para">
-          It happens as soon as you confirm the verification code sent to your
-          email (or mobile) and save the changes.
+          It happens as soon as you confirm the verification code sent to your email (or mobile) and
+          save the changes.
         </div>
         <div className="para qus">
-          What happens to my existing ikart account when I update my email
-          address (or mobile number)?
+          What happens to my existing ikart account when I update my email address (or mobile
+          number)?
         </div>
         <div className="para">
-          Updating your email address (or mobile number) doesn't invalidate your
-          account. Your account remains fully functional. You'll continue seeing
-          your Order history, saved information and personal details.
+          Updating your email address (or mobile number) doesn't invalidate your account. Your
+          account remains fully functional. You'll continue seeing your Order history, saved
+          information and personal details.
         </div>
         <div className="para qus">
           Does my Seller account get affected when I update my email address?
         </div>
         <div className="para">
-          ikart has a 'single sign-on' policy. Any changes will reflect in your
-          Seller account also.
+          ikart has a 'single sign-on' policy. Any changes will reflect in your Seller account also.
         </div>
       </div>
       <span className="deactivate">Deactivate Account</span>

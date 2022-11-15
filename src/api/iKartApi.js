@@ -5,16 +5,7 @@ export const iKartApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:4000/",
   }),
-  tagTypes: [
-    "wish",
-    "auth",
-    "user",
-    "cart",
-    "product",
-    "logout",
-    "signin",
-    "isLoggedIn",
-  ],
+  tagTypes: ["wish", "auth", "user", "cart", "product", "logout", "signin", "isLoggedIn"],
   endpoints: (builder) => ({
     // @public
     // get Auth
@@ -62,17 +53,29 @@ export const iKartApi = createApi({
       }),
       invalidatesTags: ["auth", "logout"],
     }),
-
+    // #################################################
     // @public
     // Seller Registration
     getSellerRegistration: builder.mutation({
       query: (body) => ({
         url: "seller/registration",
-        method: "POST",
+        method: "PATCH",
         body: body,
         credentials: "include",
       }),
-      invalidatesTags: ["auth"],
+      invalidatesTags: ["seller"],
+    }),
+
+    // @public
+    // update Seller
+    updateSeller: builder.mutation({
+      query: (props) => ({
+        url: "seller/updateSeller",
+        method: "PATCH",
+        body: props.body,
+        credentials: "include",
+      }),
+      invalidatesTags: ["seller"],
     }),
 
     // #################################################
@@ -85,7 +88,7 @@ export const iKartApi = createApi({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: ["user", "isLoggedIn"],
+      providesTags: ["user", "isLoggedIn", "seller"],
     }),
 
     // @public
@@ -93,6 +96,18 @@ export const iKartApi = createApi({
     updateUser: builder.mutation({
       query: (props) => ({
         url: "user/updateUser",
+        method: "PATCH",
+        body: props.body,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    // @public
+    // update User
+    updateUserAddress: builder.mutation({
+      query: (props) => ({
+        url: "user/updateUserAddress",
         method: "PATCH",
         body: props.body,
         credentials: "include",
@@ -136,7 +151,6 @@ export const iKartApi = createApi({
       providesTags: ["product"],
     }),
 
-  
     //@public
     // get All filtered Products
     getCatProduct: builder.query({
@@ -216,9 +230,8 @@ export const iKartApi = createApi({
       invalidatesTags: ["product"],
     }),
 
-    
     // ############################################################
-       // @private
+    // @private
     // get wishlist Items
     getWishlistItems: builder.query({
       query: () => ({
@@ -229,7 +242,7 @@ export const iKartApi = createApi({
       providesTags: ["wish", "signin"],
     }),
 
-     // @private
+    // @private
     // update wishlist Item
     updateWishlist: builder.mutation({
       query: (props) => ({
@@ -241,7 +254,7 @@ export const iKartApi = createApi({
       invalidatesTags: ["wish"],
     }),
 
-      // @private
+    // @private
     // remove Wishlist Item
     removeWishlistItem: builder.mutation({
       query: (props) => ({
@@ -252,7 +265,7 @@ export const iKartApi = createApi({
       invalidatesTags: ["wish"],
     }),
 
-      // @private
+    // @private
     // get Cart Count
     isItemInWishlist: builder.query({
       query: (prop) => ({
@@ -262,7 +275,7 @@ export const iKartApi = createApi({
       }),
       providesTags: ["wish", "signin"],
     }),
-    
+
     // ############################################################
 
     // @private
@@ -329,6 +342,7 @@ export const {
   useGetSignUpMutation,
   useGetLogOutMutation,
   useGetSellerRegistrationMutation,
+  useUpdateSellerMutation,
   useGetAuthUserQuery,
   useUpdateUserMutation,
   useUpdateUserPasswordMutation,
@@ -350,4 +364,5 @@ export const {
   useUpdateWishlistMutation,
   useRemoveWishlistItemMutation,
   useIsItemInWishlistQuery,
+  useUpdateUserAddressMutation,
 } = iKartApi;
