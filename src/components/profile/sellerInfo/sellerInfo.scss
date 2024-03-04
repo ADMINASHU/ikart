@@ -1,0 +1,220 @@
+.profileInfo {
+  padding: 5%;
+  // background-color: rgb(0, 225, 255);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .infoHeader {
+    height: 40px;
+    // background-color: rgb(233, 13, 13);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(197, 197, 197);
+    // padding: 5px;
+
+    .head-left {
+      display: flex;
+      align-items: center;
+      // height: 40px;
+      // background-color: rgb(71, 241, 14);
+      .head {
+        font-size: 22px;
+        font-weight: 600;
+        margin-right: 20px;
+      }
+
+      .save {
+        height: 30px;
+        padding: 0px 20px;
+        background-color: rgb(243, 72, 4);
+        border: none;
+        color: rgb(255, 255, 255);
+        border-radius: 2px;
+        cursor: pointer;
+      }
+    }
+
+    .button {
+      color: rgb(13, 41, 199);
+      font-size: 12px;
+      font-weight: 600;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .pform {
+    display: flex;
+    flex-direction: row;
+    // gap: 20px;
+    justify-content: space-between;
+    margin-right: 10%;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 60%;
+      .line1 {
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        // background-color: rgb(221, 15, 15);
+
+        // .input {
+        //     display: flex;
+        //     flex-direction: column;
+        //     gap: 5px;
+        //     width: 100%;
+
+        //     // background-color: rgb(11, 239, 22);
+        //     // align-items:flex-end;
+        //     input {
+        //         padding: 10px;
+        //         width: 90%;
+        //     }
+        // }
+      }
+
+      .pinput {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        input {
+          padding: 10px;
+          width: 90%;
+        }
+
+        .gender {
+          // background-color: rgb(216, 212, 156);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+
+          #male,
+          #female {
+            width: 14px;
+            // margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .logoBox {
+    margin-top: 25px;
+    width: 180px;
+    height: 180px;
+    border: 1px solid rgb(134, 134, 134);
+    object-fit: cover;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .imgButton::file-selector-button {
+      background-color: rgb(0, 23, 66);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      padding: 5px;
+    }
+  }
+
+  .sform {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    // justify-content: center;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      justify-content: center;
+      .save {
+        height: 35px;
+        width: 90px;
+        padding: 10px 10px;
+        background-color: rgb(0, 23, 66);
+        border: none;
+        color: rgb(255, 255, 255);
+        border-radius: 2px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgb(243, 72, 4);
+          box-shadow: 0 0 5px 2px rgb(113, 113, 113);
+        }
+      }
+
+      .textArea {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        max-width: 100%;
+
+        textarea {
+          padding: 10px;
+          max-width: 100%;
+          height: 116px;
+          resize: none;
+        }
+      }
+
+      .input {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+
+        input {
+          padding: 10px;
+          width: 95%;
+        }
+      }
+      .line {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        // background-color: rgb(221, 15, 15);
+        gap: 20px;
+        .input {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          width: 100%;
+          // background-color: rgb(11, 239, 22);
+          // align-items:flex-end;
+          input,
+          select {
+            // background-color: red;
+            padding: 10px;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .deactivate {
+    color: red;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 20px;
+    font-weight: 600;
+  }
+}

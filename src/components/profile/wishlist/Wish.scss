@@ -1,0 +1,15 @@
+.wishlist {
+    display: flex;
+    gap: 20px;
+    height: 86vh;
+
+    .filter {
+        width: 30%;
+
+    }
+
+    .list {
+        background-color: rgb(247, 247, 247);
+        width: 100%;
+    }
+}

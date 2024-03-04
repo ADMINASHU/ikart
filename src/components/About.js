@@ -1,18 +1,7 @@
-import React, { useEffect } from 'react'
-import useAuth from "./hooks/useAuth";
-import useUI from './hooks/useUI';
+import React from "react";
 
 const About = () => {
-  const { isLoggedIn } = useAuth();
-  const {setNavView} = useUI()
-  useEffect(() => {
-    isLoggedIn();
-    setNavView(false);
-  }, []);
+  return <div>About</div>;
+};
 
-  return (
-    <div>About</div>
-  )
-}
-
-export default About
+export default About;

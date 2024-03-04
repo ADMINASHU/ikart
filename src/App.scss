@@ -1,12 +1,20 @@
-.page{
-    // margin-top: 40px;
-    margin: 40px 5% 20px 5%;
+body {
+    background-color: rgb(228, 228, 228);
+    // height: 100Vh;
+    // width: 100vw;
+
 }
+
+.page {
+    // margin-top: 40px;
+    margin: 60px 5% 20px 5%;
+}
+
 .navbar {
     width: 100%;
-    height: 40px;
+    height: 5vh;
     z-index: 99;
-    // background-color: red;
+    background-color: rgb(0, 23, 66);
     position: fixed;
     top: 0;
     display: flex;
@@ -30,12 +38,50 @@
 
         .i {
             font-size: 2rem;
-            color: rgb(3, 5, 146);
+            color: rgb(255, 255, 255);
         }
 
         .kart {
             font-size: 2rem;
-            color: rgb(248, 1, 248);
+            color: rgb(243, 72, 4);
+        }
+    }
+
+    .search {
+        display: flex;
+        align-items: center;
+        // position: relative;
+        border-radius: 2px;
+        margin: 0 20px;
+        min-width: 200px;
+        width: 40%;
+        height: 35px;
+        background-color: #fff;
+        padding: 0 10px;
+
+        input {
+
+            // width: 400px;
+            width: 100%;
+            // height: 30px;
+
+            border: none;
+            font-size: 16px;
+            color: rgb(0, 23, 66);
+
+            
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .button {
+            // position: absolute;
+            height: 20px;
+            width: 20px;
+            // right: 5px;
+            color: rgb(0, 23, 66);
+            cursor: pointer;
         }
     }
 
@@ -54,11 +100,63 @@
             padding: 10px;
             // background-color: #fff;
             cursor: pointer;
-
-            a {
+            min-width: 100px;
+            text-align: center;
+          
+            a,
+            span {
                 text-decoration: none;
-                color: black;
-                font-size: 1.5rem;
+                color: rgb(255, 255, 255);
+                font-size: 1.2rem;
+            }
+
+            .active {
+                color: rgb(243, 72, 4);
+                font-size: 1.2rem;
+            }
+            .cart_icon{
+                color: rgb(255, 255, 255);
+               
+            }
+            .cartCount {
+                position: absolute;
+                width: 18px;
+                height: 18px;
+                background-color: rgb(196, 55, 0);
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 9px;
+                font-weight: 500;
+                border: 1px solid rgb(0, 23, 66);
+                color: rgb(255, 255, 255);
+                top: 5px;
+                right: calc(5% + 10px);
+
+            }
+        }
+
+        .signin {
+            // border: 1px solid rgb(255, 255, 255);
+            background-color: #fff;
+            height: 35px;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            span {
+                color: rgb(0, 23, 66);
+                font-size: 1.2rem;
+                font-weight: 500;
+                cursor: pointer;
+
+            }
+
+            &:active {
+                // background-color: red;
+                box-shadow: 0 0 4px 2px rgb(165, 165, 165);
             }
         }
     }
@@ -67,10 +165,24 @@
         position: absolute;
         z-index: 99;
         list-style: none;
-        background-color: rgb(223, 223, 223);
-        top: 40px;
-        right: 5%;
+        background-color: rgb(0, 23, 66);
+        top: 55px;
+        right: calc(5% + 260px);
         border-radius: 10px;
+        box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.411);
+
+        &::before {
+            position: absolute;
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-color: rgb(0, 23, 66);
+            box-shadow: -8px -8px 8px rgba(0, 0, 0, 0.603);
+            z-index: 0;
+            left: 90px;
+            top: -8px;
+            transform: rotateY(0deg) rotate(45deg);
+        }
 
         .profileLinks {
             list-style: none;
@@ -83,10 +195,17 @@
 
                 // border-top: 1px solid black;
                 // background-color: red;
-                a {
+                a,
+                span {
                     text-decoration: none;
                     font-size: 1.2rem;
+                    color: #fff;
 
+                }
+
+                .active {
+                    color: rgb(243, 72, 4);
+                    font-size: 1.2rem;
                 }
             }
         }
@@ -96,7 +215,8 @@
 .footer {
     background-color: rgb(238, 238, 238);
     width: 100%;
-    position: fixed;
+    height: 5vh;
+    // position: fixed;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -118,19 +238,25 @@
 
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        background-color: rgb(0, 255, 255);
+        // background-color: rgb(0, 255, 255);
 
         .card {
             width: 250px;
             height: 320px;
             border: 2px solid;
             padding: 3px;
-            background-color: red;
+            // background-color: red;
 
             .productImage {
                 width: 240px;
                 height: 240px;
-                background-color: green;
+                // background-color: green;
+
+                img {
+                    width: 240px;
+                    height: 240px;
+                    object-fit: contain;
+                }
             }
 
             .property {

@@ -2,22 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import App from "./App";
-import { AuthProvider } from "./components/context/AuthProvider";
-import { ProductProvider } from "./components/context/ProductProvider";
-import { UIProvider } from "./components/context/UIProvider";
-import { CartProvider } from "./components/context/CartProvider";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+// require('dotenv').config();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ProductProvider>
-      <AuthProvider>
-        <CartProvider>
-          <UIProvider>
-            <App />
-          </UIProvider>
-        </CartProvider>
-      </AuthProvider>
-    </ProductProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
